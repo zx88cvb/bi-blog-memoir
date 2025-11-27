@@ -10,7 +10,7 @@ import { Home, User, Instagram, Youtube, Mail, ArrowUpRight, ChevronLeft, Chevro
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "About", href: "/about", icon: User },
-  { name: "Friendly Links", href: "/friendly-links", icon: ArrowUpRight },
+  { name: "Friendly Links", href: "/friends", icon: ArrowUpRight },
 ];
 
 const socialLinks = [

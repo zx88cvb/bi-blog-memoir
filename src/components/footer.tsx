@@ -8,7 +8,7 @@ export function Footer({ className }: { className?: string }) {
       <div className="flex justify-center gap-6 mb-6">
         <Link href="/" className="hover:text-primary">Home</Link>
         <Link href="/about" className="hover:text-primary">About</Link>
-        <Link href="/friendly-links" className="hover:text-primary">Friendly Links</Link>
+        <Link href="/friends" className="hover:text-primary">Friendly Links</Link>
       </div>
       <div className="text-xs">
         &copy; 2025 HaydenBi Blog. All rights reserved.
