@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -11,8 +12,8 @@ export default function AboutPage() {
               Who&apos;s writing
             </div>
 
-            <h1 className="text-5xl sm:text-6xl font-serif font-medium tracking-tight text-primary">
-              Hey, I&apos;m Skylar.
+            <h1 className="text-4xl sm:text-5xl font-serif font-medium tracking-tight text-primary">
+              Hey, I&apos;m Hayden Bi.
             </h1>
 
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
@@ -28,20 +29,24 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="pt-4">
-              {/* Signature placeholder - using text for now, could be an image */}
+            {/* <div className="pt-4">
+              Signature placeholder - using text for now, could be an image
               <div className="font-cursive text-4xl text-primary" style={{ fontFamily: 'cursive' }}>
-                Skylar
+                Hayden Bi
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Image */}
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-200">
-            {/* Placeholder for the profile image */}
-            <div className="absolute inset-0 bg-neutral-300 flex items-center justify-center text-neutral-500">
-              Profile Image Placeholder
-            </div>
+            <Image
+              src="https://r2.haydenbi.com/about/about.png"
+              alt="Portrait of Hayden Bi"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </div>

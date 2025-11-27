@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Home, User, ArrowUpRight, Instagram, Youtube, Mail } from "lucide-react";
+import { Menu, X, Home, User, ArrowUpRight, Twitter, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -14,9 +14,8 @@ const navItems = [
 ];
 
 const socialLinks = [
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "YouTube", href: "#", icon: Youtube },
-  { name: "Email", href: "mailto:hello@example.com", icon: Mail },
+  { name: "X (Twitter)", href: "https://x.com/HaydenBi", icon: Twitter },
+  { name: "Email", href: "mailto:zx88cvb@gmail.com", icon: Mail },
 ];
 
 export function MobileNav() {
@@ -66,6 +65,8 @@ export function MobileNav() {
                   <a
                     key={item.name}
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-4 rounded-md px-4 py-3 text-lg font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
                   >
                     <Icon className="h-6 w-6" />

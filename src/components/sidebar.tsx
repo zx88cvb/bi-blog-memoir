@@ -4,8 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Home, User, Instagram, Youtube, Mail, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Home, User, Twitter, Mail, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
@@ -14,9 +13,8 @@ const navItems = [
 ];
 
 const socialLinks = [
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "YouTube", href: "#", icon: Youtube },
-  { name: "Email", href: "mailto:hello@example.com", icon: Mail },
+  { name: "X (Twitter)", href: "https://x.com/HaydenBi", icon: Twitter },
+  { name: "Email", href: "mailto:zx88cvb@gmail.com", icon: Mail },
 ];
 
 interface SidebarProps {
@@ -96,6 +94,8 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
                 <a
                   key={item.name}
                   href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
                 >
                   <div className="flex items-center gap-3">
@@ -110,13 +110,13 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
         </div>
       )}
 
-      {/* Pinned */}
+      {/* Ad */}
       {!isCollapsed && (
         <div className="mb-8 overflow-hidden">
-          <h3 className="text-xs font-semibold text-muted-foreground mb-4 uppercase tracking-wider">Pinned</h3>
+          <h3 className="text-xs font-semibold text-muted-foreground mb-4 uppercase tracking-wider">Ad</h3>
           <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden">
             <div className="h-32 bg-neutral-200 relative">
-              {/* Placeholder for pinned image */}
+              {/* Placeholder for Ad image */}
             </div>
             <div className="p-3">
               <div className="flex items-center justify-between">

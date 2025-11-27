@@ -1,10 +1,43 @@
 import { Footer } from "@/components/footer";
-import { formatDate, getAllPosts } from "@/lib/blog";
-import { ArrowRight } from "lucide-react";
+import { filterPostsByCategory, formatDate, getAllPosts, getCategories } from "@/lib/blog";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
-export default function Home() {
-  const posts = getAllPosts();
+type PageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function Home({ searchParams }: PageProps) {
+  const { category, q } = await searchParams;
+  const categories = getCategories();
+  const selectedCategory = Array.isArray(category) ? category[0] : category;
+  const query = Array.isArray(q) ? q[0]?.trim() ?? "" : q?.trim() ?? "";
+  const allPosts = getAllPosts();
+  const postsByCategory = selectedCategory ? filterPostsByCategory(selectedCategory) : allPosts;
+  const posts = query
+    ? postsByCategory.filter((post) => {
+        const haystack = [
+          post.title,
+          post.excerpt,
+          post.description,
+          ...(post.tags ?? []),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(query.toLowerCase());
+      })
+    : postsByCategory;
+
+  const buildHref = (nextCategory?: string) => {
+    const params = new URLSearchParams();
+    if (nextCategory) params.set("category", nextCategory);
+    if (query) params.set("q", query);
+    const search = params.toString();
+    return search ? `/?${search}` : "/";
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -21,12 +54,43 @@ export default function Home() {
       </section>
 
       <section className="container mx-auto px-4 py-12 max-w-5xl flex-1">
+        <div className="flex justify-center mb-10">
+          <form action="/" method="get" className="relative">
+            {selectedCategory && <input type="hidden" name="category" value={selectedCategory} />}
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="search"
+              name="q"
+              placeholder="Search..."
+              defaultValue={query}
+              className="w-64 rounded-full bg-white pl-9 border-transparent shadow-none focus-visible:ring-1 focus-visible:ring-neutral-300 focus:bg-white transition-all"
+            />
+          </form>
+        </div>
+
         <div className="flex items-center justify-between mb-6">
           <div className="flex flex-col gap-1">
             <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">Latest posts</p>
             <h2 className="text-3xl font-serif font-medium tracking-tight text-primary">Fresh from the journal</h2>
           </div>
-          <span className="text-sm text-muted-foreground">{posts.length} published</span>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-muted-foreground whitespace-nowrap">{posts.length} published</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-8 no-scrollbar">
+          <CategoryPill href={buildHref()} active={!selectedCategory} label="All" />
+          {categories.map((cat) => {
+            const href = buildHref(cat.slug);
+            return (
+              <CategoryPill
+                key={cat.slug}
+                href={href}
+                label={cat.name}
+                active={selectedCategory === cat.slug}
+              />
+            );
+          })}
         </div>
 
         {posts.length === 0 ? (
@@ -42,7 +106,17 @@ export default function Home() {
                   className="group block bg-white rounded-2xl p-2 shadow-sm hover:shadow-md transition-all"
                 >
                   <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200 relative mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-white group-hover:scale-[1.02] transition-transform" />
+                    {post.image ? (
+                      <Image
+                        src={post.image}
+                        alt={post.title ?? post.slug}
+                        fill
+                        sizes="(min-width: 1024px) 320px, (min-width: 640px) 280px, 100vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-white group-hover:scale-[1.02] transition-transform" />
+                    )}
                   </div>
                   <div className="px-2 pb-3 flex flex-col gap-2">
                     <div className="flex items-center justify-between text-xs text-muted-foreground font-medium">
@@ -77,5 +151,28 @@ export default function Home() {
 
       <Footer />
     </div>
+  );
+}
+
+type CategoryPillProps = {
+  href: string;
+  label: string;
+  active?: boolean;
+};
+
+function CategoryPill({ href, label, active }: CategoryPillProps) {
+  return (
+    <Link
+      href={href}
+      className={[
+        "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
+        active
+          ? "bg-black text-white border-black shadow-sm"
+          : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50",
+      ].join(" ")}
+      aria-current={active ? "page" : undefined}
+    >
+      {label}
+    </Link>
   );
 }

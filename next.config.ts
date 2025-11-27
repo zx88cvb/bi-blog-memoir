@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
 
   // Enable standalone output for Docker deployment
   output: 'standalone',
+  images: {
+    dangerouslyAllowLocalIP: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "r2.haydenbi.com",
+      },
+    ],
+  },
 };
 
 /**

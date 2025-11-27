@@ -3,6 +3,7 @@ import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -18,8 +19,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) return { title: "Post not found" };
 
   return {
-    title: post.title ?? post.slug,
+    title: `${post.title} | HaydenBi`,
     description: post.excerpt ?? post.description,
+    keywords: post.tags?.join(', '),
   };
 }
 
@@ -65,6 +67,18 @@ export default async function BlogPostPage({ params }: PageProps) {
           <h1 className="text-4xl sm:text-5xl font-serif font-medium tracking-tight text-primary leading-tight">
             {post.title ?? post.slug}
           </h1>
+          {post.image && (
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-200">
+              <Image
+                src={post.image}
+                alt={post.title ?? post.slug}
+                fill
+                sizes="(min-width: 1024px) 768px, 100vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          )}
         </header>
 
         <article className="prose prose-neutral dark:prose-invert max-w-none mb-16">
