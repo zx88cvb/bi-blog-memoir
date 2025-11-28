@@ -4,6 +4,13 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Hayden Bi Blog",
+  description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
+  keywords: ["blog", "Next.js", "tech notes", "indie dev"],
+};
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -164,6 +171,7 @@ function CategoryPill({ href, label, active }: CategoryPillProps) {
   return (
     <Link
       href={href}
+      scroll={false}
       className={[
         "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
         active

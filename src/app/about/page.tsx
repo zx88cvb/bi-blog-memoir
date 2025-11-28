@@ -1,5 +1,12 @@
 import { Footer } from "@/components/footer";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "关于我 | Hayden Bi Blog",
+  description: "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。",
+  keywords: ["关于", "独立开发者", "写作", "个人简介"],
+};
 
 export default function AboutPage() {
   return (

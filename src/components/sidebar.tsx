@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Home, User, Twitter, Mail, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
@@ -46,9 +47,15 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
 
       {/* Profile */}
       <div className={cn("flex items-center gap-3 mb-8 transition-all", isCollapsed ? "justify-center" : "")}>
-        <div className="h-10 w-10 min-w-10 rounded-full bg-gray-300 overflow-hidden relative">
-          {/* Placeholder for profile image */}
-          <div className="absolute inset-0 bg-neutral-400" />
+        <div className="h-10 w-10 min-w-10 rounded-full overflow-hidden relative bg-neutral-200">
+          <Image
+            src="/logo.png"
+            alt="Hayden Bi avatar"
+            fill
+            sizes="40px"
+            className="object-cover"
+            priority
+          />
         </div>
         {!isCollapsed && (
           <div className="overflow-hidden whitespace-nowrap">
@@ -84,31 +91,35 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
       </nav>
 
       {/* Find Me */}
-      {!isCollapsed && (
-        <div className="mb-8 overflow-hidden whitespace-nowrap">
+      <div className="mb-8 overflow-hidden whitespace-nowrap">
+        {!isCollapsed && (
           <h3 className="text-xs font-semibold text-muted-foreground mb-4 uppercase tracking-wider">Find Me</h3>
-          <div className="space-y-1">
-            {socialLinks.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                >
-                  <div className="flex items-center gap-3">
-                    <Icon className="h-4 w-4" />
-                    {item.name}
-                  </div>
-                  <ArrowUpRight className="h-3 w-3 opacity-50" />
-                </a>
-              );
-            })}
-          </div>
+        )}
+        <div className="space-y-1">
+          {socialLinks.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "flex items-center rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground",
+                  isCollapsed ? "justify-center" : "justify-between"
+                )}
+                title={isCollapsed ? item.name : undefined}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className="h-4 w-4" />
+                  {!isCollapsed && item.name}
+                </div>
+                {!isCollapsed && <ArrowUpRight className="h-3 w-3 opacity-50" />}
+              </a>
+            );
+          })}
         </div>
-      )}
+      </div>
 
       {/* Ad */}
       {!isCollapsed && (

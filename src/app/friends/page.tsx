@@ -1,6 +1,13 @@
 import { Footer } from "@/components/footer";
 import friendsData from "../../../content/data/friends.json";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "友链 | Hayden Bi Blog",
+  description: "精选友链与伙伴站点",
+  keywords: ["友链", "友情链接", "伙伴站点", "blogroll"],
+};
 import { ArrowUpRight } from "lucide-react";
 
 type Friend = {
