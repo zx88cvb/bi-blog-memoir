@@ -4,10 +4,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { JsonLd } from "@/components/json-ld";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
 
 export function generateStaticParams() {
   return getAllPosts().map(({ slug }) => ({ slug }));
@@ -21,7 +25,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${post.title} | HaydenBi`,
     description: post.excerpt ?? post.description,
-    keywords: post.tags?.join(', '),
+    keywords: post.tags?.join(", "),
+    metadataBase,
+    alternates: {
+      canonical: baseUrl ? `${baseUrl}/posts/${slug}` : `/posts/${slug}`,
+    },
+    openGraph: {
+      title: post.title ?? post.slug,
+      description: post.excerpt ?? post.description,
+      url: baseUrl ? `${baseUrl}/posts/${slug}` : `/posts/${slug}`,
+      type: "article",
+      publishedTime: post.date,
+      images: post.image ? [post.image] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title ?? post.slug,
+      description: post.excerpt ?? post.description,
+      images: post.image ? [post.image] : undefined,
+    },
   };
 }
 
@@ -38,6 +60,20 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="container mx-auto px-4 py-10 max-w-3xl flex-1">
+        {baseUrl && (
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: post.title ?? post.slug,
+              description: post.excerpt ?? post.description,
+              datePublished: post.date,
+              author: post.author ? { "@type": "Person", name: post.author } : undefined,
+              image: post.image,
+              url: `${baseUrl}/posts/${slug}`,
+            }}
+          />
+        )}
         <div className="flex items-center justify-between mb-6">
           <Link
             href="/"

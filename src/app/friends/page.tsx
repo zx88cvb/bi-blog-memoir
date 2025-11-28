@@ -2,13 +2,35 @@ import { Footer } from "@/components/footer";
 import friendsData from "../../../content/data/friends.json";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { ArrowUpRight } from "lucide-react";
+import { JsonLd } from "@/components/json-ld";
+
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
+const ogImage = baseUrl ? `${baseUrl}/logo.png` : "/logo.png";
 
 export const metadata: Metadata = {
   title: "友链 | Hayden Bi Blog",
-  description: "精选友链与伙伴站点",
+  description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
   keywords: ["友链", "友情链接", "伙伴站点", "blogroll"],
+  metadataBase,
+  alternates: {
+    canonical: baseUrl ? `${baseUrl}/friends` : "/friends",
+  },
+  openGraph: {
+    title: "友链 | Hayden Bi Blog",
+    description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
+    url: baseUrl ? `${baseUrl}/friends` : "/friends",
+    type: "website",
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "友链 | Hayden Bi Blog",
+    description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
+    images: [ogImage],
+  },
 };
-import { ArrowUpRight } from "lucide-react";
 
 type Friend = {
   id: string;
@@ -36,6 +58,23 @@ export default function FriendlyLinksPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {baseUrl && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "友链 | Hayden Bi Blog",
+            url: `${baseUrl}/friends`,
+            description: metadata.description,
+            hasPart: friends.map((friend) => ({
+              "@type": "Person",
+              name: friend.name,
+              url: friend.url,
+              description: friend.description,
+            })),
+          }}
+        />
+      )}
       <div className="container mx-auto px-4 py-12 max-w-4xl flex-1">
         <div className="flex flex-col gap-3 mb-8">
           <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">Friends</p>

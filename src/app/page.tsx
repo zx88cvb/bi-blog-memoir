@@ -5,11 +5,33 @@ import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
+const ogImage = baseUrl ? `${baseUrl}/logo.png` : "/logo.png";
 
 export const metadata: Metadata = {
   title: "Hayden Bi Blog",
   description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
   keywords: ["blog", "Next.js", "tech notes", "indie dev"],
+  metadataBase,
+  alternates: {
+    canonical: baseUrl ? `${baseUrl}/` : "/",
+  },
+  openGraph: {
+    title: "Hayden Bi Blog",
+    description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
+    url: baseUrl ? `${baseUrl}/` : "/",
+    type: "website",
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hayden Bi Blog",
+    description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
+    images: [ogImage],
+  },
 };
 
 type PageProps = {
@@ -48,6 +70,22 @@ export default async function Home({ searchParams }: PageProps) {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {baseUrl && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            url: `${baseUrl}/`,
+            name: "Hayden Bi Blog",
+            description: metadata.description,
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${baseUrl}/?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          }}
+        />
+      )}
       <section className="flex flex-col items-center justify-center py-20 px-4 text-center">
         <div className="mb-6 inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-600 shadow-sm">
           Personal notes & build log
