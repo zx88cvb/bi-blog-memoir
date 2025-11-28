@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Home, User, ArrowUpRight, Twitter, Mail, Rss } from "lucide-react";
+import { Menu, X, Home, User, ArrowUpRight, Mail, Rss } from "lucide-react";
+import { XIcon } from '@/components/ui/lucide-icon'
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -15,10 +16,10 @@ const navItems = [
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const socialLinks = [
-  { name: "X (Twitter)", href: "https://x.com/HaydenBi", icon: Twitter },
+  { name: "X (Twitter)", href: "https://x.com/HaydenBi", icon: XIcon },
   { name: "Email", href: "mailto:zx88cvb@gmail.com", icon: Mail },
   baseUrl && { name: "RSS", href: `${baseUrl}/feed.xml`, icon: Rss },
-].filter(Boolean) as { name: string; href: string; icon: typeof Twitter }[];
+].filter(Boolean) as { name: string; href: string; icon: typeof XIcon }[];
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);

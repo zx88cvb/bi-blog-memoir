@@ -4,8 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, User, Twitter, Mail, Rss, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Home, User, Mail, Rss, ArrowUpRight, ChevronLeft, ChevronRight, X, Eye } from "lucide-react";
+import { XIcon } from '@/components/ui/lucide-icon'
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
@@ -15,10 +17,10 @@ const navItems = [
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const socialLinks = [
-  { name: "X (Twitter)", href: "https://x.com/HaydenBi", icon: Twitter },
+  { name: "X (Twitter)", href: "https://x.com/HaydenBi", icon: XIcon },
   { name: "Email", href: "mailto:zx88cvb@gmail.com", icon: Mail },
   baseUrl && { name: "RSS", href: `${baseUrl}/feed.xml`, icon: Rss },
-].filter(Boolean) as { name: string; href: string; icon: typeof Twitter }[];
+].filter(Boolean) as { name: string; href: string; icon: typeof XIcon }[];
 
 interface SidebarProps {
   className?: string;
@@ -28,6 +30,23 @@ interface SidebarProps {
 
 export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarProps) {
   const pathname = usePathname();
+  const [isAdVisible, setIsAdVisible] = useState(true);
+
+  // Hydrate client state after mount to prevent mismatch
+  useEffect(() => {
+    const savedPreference = localStorage.getItem('sidebar-ad-visible');
+    if (savedPreference !== null) {
+      // eslint-disable-next-line
+      setIsAdVisible(savedPreference === 'true');
+    }
+  }, []);
+
+  // Save ad visibility preference to localStorage
+  const toggleAdVisibility = () => {
+    const newVisibility = !isAdVisible;
+    setIsAdVisible(newVisibility);
+    localStorage.setItem('sidebar-ad-visible', String(newVisibility));
+  };
 
   return (
     <aside
@@ -125,30 +144,55 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
 
       {/* Ad */}
       {!isCollapsed && (
-        <div className="mb-8 overflow-hidden">
-          <h3 className="text-xs font-semibold text-muted-foreground mb-4 uppercase tracking-wider">Ad</h3>
-          <a
-            href="https://x-twitter-downloader.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-          >
-            <div className="h-32 bg-neutral-200 relative">
-              <Image
-                src="https://r2.haydenbi.com/ad/og-image.png"
-                alt="Twitter Video Downloader"
-                fill
-                sizes="256px"
-                className="object-cover"
-              />
-            </div>
-            <div className="p-3">
-              <div className="flex items-center justify-between">
-                <h4 className="text-xs font-medium truncate">Twitter Video Downloader</h4>
-                <ArrowUpRight className="h-3 w-3 opacity-50 flex-shrink-0" />
+        <div className="mb-8 overflow-hidden" suppressHydrationWarning>
+          {isAdVisible ? (
+            <>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Ad</h3>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-5 w-5 hover:bg-accent"
+                  onClick={toggleAdVisibility}
+                  title="Hide ad"
+                >
+                  <X className="h-3 w-3" />
+                </Button>
               </div>
-            </div>
-          </a>
+              <a
+                href="https://x-twitter-downloader.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+              >
+                <div className="h-32 bg-neutral-200 relative">
+                  <Image
+                    src="https://r2.haydenbi.com/ad/og-image.png"
+                    alt="Twitter Video Downloader"
+                    fill
+                    sizes="256px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-xs font-medium truncate">Twitter Video Downloader</h4>
+                    <ArrowUpRight className="h-3 w-3 opacity-50 flex-shrink-0" />
+                  </div>
+                </div>
+              </a>
+            </>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full justify-center gap-2"
+              onClick={toggleAdVisibility}
+            >
+              <Eye className="h-3 w-3" />
+              <span className="text-xs">Show Ad</span>
+            </Button>
+          )}
         </div>
       )}
 
