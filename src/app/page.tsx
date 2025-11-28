@@ -167,11 +167,11 @@ export default async function Home({ searchParams }: PageProps) {
                       <span>{formatDate(post.date) || "—"}</span>
                       {post.tags?.[0] && <span className="truncate max-w-[8rem] text-right">{post.tags[0]}</span>}
                     </div>
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="text-lg font-semibold leading-tight tracking-tight text-primary group-hover:underline">
+                    <div className="flex items-start justify-between gap-2 min-h-[3.5rem]">
+                      <h3 className="text-lg font-semibold leading-tight tracking-tight text-primary group-hover:underline line-clamp-2">
                         {post.title ?? post.slug}
                       </h3>
-                      <span className="rounded-full bg-neutral-100 p-1 group-hover:bg-neutral-200 transition-colors">
+                      <span className="rounded-full bg-neutral-100 p-1 group-hover:bg-neutral-200 transition-colors flex-shrink-0">
                         <ArrowRight className="h-4 w-4 text-neutral-500" />
                       </span>
                     </div>
