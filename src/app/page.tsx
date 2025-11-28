@@ -8,8 +8,9 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
-const ogImage = baseUrl ? `${baseUrl}/logo.png` : "/logo.png";
+const ogImage = storeUrl ? `${storeUrl}/logo/og-image.png` : "/logo/og-image.png";
 
 export const metadata: Metadata = {
   title: "Hayden Bi Blog",
@@ -17,12 +18,20 @@ export const metadata: Metadata = {
   keywords: ["blog", "Next.js", "tech notes", "indie dev"],
   metadataBase,
   alternates: {
-    canonical: baseUrl ? `${baseUrl}/` : "/",
+    canonical: "/",
+    types: {
+      'application/rss+xml': [
+        {
+          title: 'Hayden Bi Blog',
+          url: '/index.xml',
+        },
+      ],
+    }
   },
   openGraph: {
     title: "Hayden Bi Blog",
     description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
-    url: baseUrl ? `${baseUrl}/` : "/",
+    url: "/",
     type: "website",
     images: [ogImage],
   },

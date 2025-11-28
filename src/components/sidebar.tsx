@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, User, Twitter, Mail, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Home, User, Twitter, Mail, Rss, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 const navItems = [
@@ -13,10 +13,12 @@ const navItems = [
   { name: "Friendly Links", href: "/friends", icon: ArrowUpRight },
 ];
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const socialLinks = [
   { name: "X (Twitter)", href: "https://x.com/HaydenBi", icon: Twitter },
   { name: "Email", href: "mailto:zx88cvb@gmail.com", icon: Mail },
-];
+  baseUrl && { name: "RSS", href: `${baseUrl}/feed.xml`, icon: Rss },
+].filter(Boolean) as { name: string; href: string; icon: typeof Twitter }[];
 
 interface SidebarProps {
   className?: string;
