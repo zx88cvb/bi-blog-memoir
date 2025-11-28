@@ -2,16 +2,19 @@
 title: "Spring AI使用ollamaModel和qwen3兼容问题because evalDuration is null错误解决"
 date: "2025-08-01"
 excerpt: "Spring AI使用ollamaModel和qwen3兼容问题because evalDuration is null错误解决详细办法"
+image: "https://r2.haydenbi.com/cover/post/springai-qwen.png"
 tags: ["Spring AI", "Java", "后端", "AI"]
 author: "Bi"
 ---
 
 ### 问题描述
-**JDK版本: 17**
-**Spring AI版本: 1.0.0**
+
+**JDK 版本: 17**
+**Spring AI 版本: 1.0.0**
 **库: OllamaChatModel**
 **模型:qwen3**
-**使用maven库**
+**使用 maven 库**
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -50,7 +53,8 @@ author: "Bi"
     <version>3.5.12</version>
 </dependency>
 ```
-使用Spring AI框架调用OllamaChatModel方法时配置qwen3模型时会出现Cannot invoke "java.time.Duration.plus(java.time.Duration)" because "evalDuration" is null 错误。错误原因是OllamaChatModel源码中的判断问题。官方将在1.0.x后续版本中解决。那么下面将在1.0版本中手动解决该问题
+
+使用 Spring AI 框架调用 OllamaChatModel 方法时配置 qwen3 模型时会出现 Cannot invoke "java.time.Duration.plus(java.time.Duration)" because "evalDuration" is null 错误。错误原因是 OllamaChatModel 源码中的判断问题。官方将在 1.0.x 后续版本中解决。那么下面将在 1.0 版本中手动解决该问题
 
 参考官方回复:https://github.com/spring-projects/spring-ai/issues/3369
 https://github.com/spring-projects/spring-ai/pull/3372
@@ -59,7 +63,9 @@ https://github.com/spring-projects/spring-ai/pull/3372
 ![Spring AI OllamaChatModel源码中的evalDuration空指针问题](https://r2.haydenbi.com/post/SpringAI-ollama-nullPointExpection.jpeg)
 
 ### 解决方法
-这个时候我们要重写OllamaChatModel，重写的方式就是新建一个OllamaAlibabaChatModel类。如下代码
+
+这个时候我们要重写 OllamaChatModel，重写的方式就是新建一个 OllamaAlibabaChatModel 类。如下代码
+
 ```java
 package com.bi.demoai.model;
 
@@ -612,9 +618,10 @@ public class OllamaAlibabaChatModel implements ChatModel {
     }
 }
 ```
-上面这段代码其实大部分是把OllamaChatModel的类复制过来，只修改了关键部分
+
+上面这段代码其实大部分是把 OllamaChatModel 的类复制过来，只修改了关键部分
 ![修改后的OllamaAlibabaChatModel关键代码部分](https://r2.haydenbi.com/post/SpringAI-ollama-nullPointExpection.jpeg)
-把图片中if语句中的代码替换成如下代码即可
+把图片中 if 语句中的代码替换成如下代码即可
 
 ```java
 if (previousChatResponse != null && previousChatResponse.getMetadata() != null) {
@@ -641,7 +648,9 @@ if (previousChatResponse != null && previousChatResponse.getMetadata() != null) 
             }
         }
 ```
-下一步把新建的OllamaAlibabaChatModel类注册成为Bean。具体注册方式参考下面代码，AiConfiguration.ollamaAlibabaChatModel方法
+
+下一步把新建的 OllamaAlibabaChatModel 类注册成为 Bean。具体注册方式参考下面代码，AiConfiguration.ollamaAlibabaChatModel 方法
+
 ```java
 package com.bi.demoai.config;
 
@@ -712,9 +721,11 @@ public class AiConfiguration {
 }
 
 ```
-这么一来我们就可以用自己的OllamaAlibabaChatModel类来代替OllamaChatModel使用阿里的qwen3模型了
+
+这么一来我们就可以用自己的 OllamaAlibabaChatModel 类来代替 OllamaChatModel 使用阿里的 qwen3 模型了
 具体使用方法
-serviceChatClient为自己定义的方法，形参中把OllamaChatModel替换为OllamaAlibabaChatModel模型即可。
+serviceChatClient 为自己定义的方法，形参中把 OllamaChatModel 替换为 OllamaAlibabaChatModel 模型即可。
+
 ```java
 /**
      * 构建模型客户端
@@ -733,6 +744,7 @@ serviceChatClient为自己定义的方法，形参中把OllamaChatModel替换为
                 .build();
     }
 ```
-通过以上配置即可解决Cannot invoke "java.time.Duration.plus(java.time.Duration)" because "evalDuration" is null 错误
+
+通过以上配置即可解决 Cannot invoke "java.time.Duration.plus(java.time.Duration)" because "evalDuration" is null 错误
 
 如果以上解决方法有其他问题可以通过邮件联系我
