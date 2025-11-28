@@ -1,11 +1,11 @@
 import { Footer } from "@/components/footer";
 import { filterPostsByCategory, formatDate, getAllPosts, getCategories } from "@/lib/blog";
-import { Input } from "@/components/ui/input";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
+import { SearchForm } from "@/components/search-form";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -109,17 +109,7 @@ export default async function Home({ searchParams }: PageProps) {
 
       <section className="container mx-auto px-4 py-12 max-w-5xl flex-1">
         <div className="flex justify-center mb-10">
-          <form action="/" method="get" className="relative">
-            {selectedCategory && <input type="hidden" name="category" value={selectedCategory} />}
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              name="q"
-              placeholder="Search..."
-              defaultValue={query}
-              className="w-64 rounded-full bg-white pl-9 border-transparent shadow-none focus-visible:ring-1 focus-visible:ring-neutral-300 focus:bg-white transition-all"
-            />
-          </form>
+          <SearchForm selectedCategory={selectedCategory} query={query} />
         </div>
 
         <div className="flex items-center justify-between mb-6">

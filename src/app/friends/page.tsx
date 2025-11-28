@@ -6,8 +6,9 @@ import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
-const ogImage = baseUrl ? `${baseUrl}/logo.png` : "/logo.png";
+const ogImage = storeUrl ? `${storeUrl}/logo/og-image.png` : "/logo/og-image.png";
 
 export const metadata: Metadata = {
   title: "友链 | Hayden Bi Blog",

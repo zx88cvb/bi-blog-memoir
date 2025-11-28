@@ -59,14 +59,10 @@ export default function AboutPage() {
 
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                I&apos;m a writer and digital creator sharing what I learn about building an
-                independent career online. Most of what I publish comes from testing
-                ideas, making mistakes, and finding what works—one project at a time.
+                我是一名独立开发者，正在尝试把产品做向全球市场，也是一位咖啡研究者，记录风味与冲煮实验。
               </p>
               <p>
-                I started out writing as a side project, but after a few small wins (and a
-                lot of failures), I turned it into my main thing. Now I focus on helping
-                other creators do the same, without the hype or sugarcoating.
+                平时喜欢电影、游戏和绘画，这些灵感常常会变成产品灵感或文章。这里分享我在出海开发、个人成长和生活兴趣里的实践笔记。
               </p>
             </div>
 
