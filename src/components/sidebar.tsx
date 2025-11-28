@@ -125,17 +125,28 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
       {!isCollapsed && (
         <div className="mb-8 overflow-hidden">
           <h3 className="text-xs font-semibold text-muted-foreground mb-4 uppercase tracking-wider">Ad</h3>
-          <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden">
+          <a
+            href="https://x-twitter-downloader.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+          >
             <div className="h-32 bg-neutral-200 relative">
-              {/* Placeholder for Ad image */}
+              <Image
+                src="https://r2.haydenbi.com/ad/og-image.png"
+                alt="Twitter Video Downloader"
+                fill
+                sizes="256px"
+                className="object-cover"
+              />
             </div>
             <div className="p-3">
               <div className="flex items-center justify-between">
-                <h4 className="text-xs font-medium truncate">The Only Writing Tools I Actually Use</h4>
+                <h4 className="text-xs font-medium truncate">Twitter Video Downloader</h4>
                 <ArrowUpRight className="h-3 w-3 opacity-50 flex-shrink-0" />
               </div>
             </div>
-          </div>
+          </a>
         </div>
       )}
 
