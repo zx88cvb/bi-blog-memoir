@@ -95,7 +95,7 @@ export default async function Home({ searchParams }: PageProps) {
           }}
         />
       )}
-      <section className="flex flex-col items-center justify-center py-20 px-4 text-center">
+      <section className="flex flex-col items-center justify-center py-10 px-4 text-center">
         <div className="mb-6 inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-600 shadow-sm">
           Personal notes & build log
         </div>
