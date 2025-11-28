@@ -25,6 +25,19 @@
       ],
       "addedDate": "2025-11-28",
       "order": 5
+    },
+    {
+      "id": "10",
+      "name": "Mr.Sun",
+      "url": "https://www.mrsunn.cn?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "保持热爱，奔赴山海",
+      "avatar": "https://www.mrsunn.cn/static/png/mrsun-344d2bff.png",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2025-11-28",
+      "order": 5
     }
   ],
   "statistics": {
