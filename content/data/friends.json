@@ -101,6 +101,19 @@
       ],
       "addedDate": "2025-11-26",
       "order": 5
+    },
+    {
+      "id": "9",
+      "name": "Ivanvolt",
+      "url": "https://ivanvolt.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "后端工程师与独立开发者",
+      "avatar": "https://ivanvolt.com/logo.png",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2025-11-28",
+      "order": 5
     }
   ],
   "statistics": {
