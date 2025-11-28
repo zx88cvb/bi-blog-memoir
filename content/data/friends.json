@@ -37,6 +37,19 @@
         "博客"
       ],
       "addedDate": "2025-11-28",
+      "order": 6
+    },
+    {
+      "id": "11",
+      "name": "Luxynth",
+      "url": "https://www.luxynth.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "我心匪石不可转",
+      "avatar": "https://luxynth.cn/assets/images/avatar.jpg",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2025-11-28",
       "order": 5
     }
   ],
