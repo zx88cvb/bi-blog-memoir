@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Home, User, ArrowUpRight, Mail, Rss } from "lucide-react";
+import { Menu, X, Home, User, Handshake, Lightbulb, Mail, Rss } from "lucide-react";
 import { XIcon } from '@/components/ui/lucide-icon'
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "About", href: "/about", icon: User },
-  { name: "Friendly Links", href: "/friends", icon: ArrowUpRight },
+  { name: "Product", href: "/product", icon: Lightbulb },
+  { name: "Friendly Links", href: "/friends", icon: Handshake },
 ];
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");

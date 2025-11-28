@@ -1,64 +1,6 @@
 {
   "friends": [
     {
-      "id": "2",
-      "name": "domainsexplore",
-      "url": "https://domainsexplore.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
-      "description": "域名查询和ip定位",
-      "avatar": "https://dhuqkmqv7zzml403.public.blob.vercel-storage.com/image/friends/domainsexplore.com.png",
-      "status": "active",
-      "tags": [
-        "域名",
-        "IP"
-      ],
-      "addedDate": "2025-08-08",
-      "order": 10
-    },
-    {
-      "id": "3",
-      "name": "gamebeanplay",
-      "url": "https://gamebeanplay.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
-      "description": "每日小游戏",
-      "avatar": "https://dhuqkmqv7zzml403.public.blob.vercel-storage.com/image/friends/gamebeanplay_logo.png",
-      "status": "active",
-      "tags": [
-        "游戏"
-      ],
-      "addedDate": "2025-08-21",
-      "order": 9
-    },
-    {
-      "id": "4",
-      "name": "X(Twitter)视频下载工具",
-      "url": "https://x-twitter-downloader.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
-      "description": "X(Twitter)视频下载工具",
-      "avatar": "https://x-twitter-downloader.com/favicon.ico",
-      "status": "active",
-      "tags": [
-        "X",
-        "Twitter",
-        "视频",
-        "下载"
-      ],
-      "addedDate": "2025-08-28",
-      "order": 7
-    },
-    {
-      "id": "5",
-      "name": "Pinterest视频下载工具",
-      "url": "https://pinterestool.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
-      "description": "Pinterest视频下载工具",
-      "avatar": "https://pinterestool.com/favicon.ico",
-      "status": "active",
-      "tags": [
-        "Pinterest",
-        "视频",
-        "下载"
-      ],
-      "addedDate": "2025-09-20",
-      "order": 8
-    },
-    {
       "id": "6",
       "name": "龚东海的博客",
       "url": "https://mgrowup.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
@@ -70,37 +12,6 @@
       ],
       "addedDate": "2025-09-20",
       "order": 6
-    },
-    {
-      "id": "7",
-      "name": "Bluesky视频下载工具",
-      "url": "https://bskytool.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
-      "description": "Bluesky视频下载工具",
-      "avatar": "https://bskytool.com/favicon.ico",
-      "status": "active",
-      "tags": [
-        "Bluesky",
-        "视频",
-        "下载"
-      ],
-      "addedDate": "2025-10-27",
-      "order": 7
-    },
-    {
-      "id": "8",
-      "name": "UrltoMedia",
-      "url": "https://urltomedia.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
-      "description": "任意URL生成截图或滚动视频",
-      "avatar": "https://urltomedia.com/favicon.ico",
-      "status": "active",
-      "tags": [
-        "URL",
-        "视频",
-        "截图",
-        "下载"
-      ],
-      "addedDate": "2025-11-26",
-      "order": 5
     },
     {
       "id": "9",

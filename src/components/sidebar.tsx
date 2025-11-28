@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, User, Mail, Rss, ArrowUpRight, ChevronLeft, ChevronRight, X, Eye } from "lucide-react";
+import { Home, User, Mail, Rss, Handshake, Lightbulb, ArrowUpRight, ChevronLeft, ChevronRight, X, Eye } from "lucide-react";
 import { XIcon } from '@/components/ui/lucide-icon'
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -12,7 +12,8 @@ import { useState, useEffect } from "react";
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "About", href: "/about", icon: User },
-  { name: "Friendly Links", href: "/friends", icon: ArrowUpRight },
+  { name: "Product", href: "/product", icon: Lightbulb },
+  { name: "Friendly Links", href: "/friends", icon: Handshake },
 ];
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
