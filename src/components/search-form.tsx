@@ -12,7 +12,7 @@ type SearchFormProps = {
 
 export function SearchForm({ selectedCategory, query }: SearchFormProps) {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

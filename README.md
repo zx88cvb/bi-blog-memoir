@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bi Blog Memoir
 
-## Getting Started
+个人博客与内容站点，基于 Next.js App Router + Fumadocs MDX，支持 MDX 文章渲染、分类筛选、RSS 输出、JSON-LD SEO。
 
-First, run the development server:
+![Site Preview](https://i.imgur.com/s5dG4jM.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 技术栈
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js 16（App Router，TypeScript）
+- Fumadocs MDX（内容管线、路由/静态生成）
+- Tailwind CSS 4（实用类样式）
+- Lucide React（图标）
+- next/font（Geist）
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 目录结构
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `content/blog/`：Markdown/MDX 文章，含 frontmatter（title、date、tags、image 等）。
+- `content/category/`：分类定义（mdx）。
+- `content/data/friends.json`：友链数据。
+- `src/app/`：应用路由（主页、文章详情、关于、友链等）。
+- `src/components/`：UI 组件（布局、导航、输入、JSON-LD 等）。
+- `src/lib/`：内容加载、RSS、工具函数。
+- `.source/`：fumadocs 生成的源文件（已在 ESLint 忽略）。
 
-## Learn More
+## 开发/构建
 
-To learn more about Next.js, take a look at the following resources:
+- 安装依赖：`npm install`
+- 本地开发：`npm run dev`
+- 代码检查：`npm run lint`
+- 生产构建：`npm run build`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 内容与路由
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 文章：`/posts/[slug]`，基于 `content/blog` 自动生成。
+- 分类筛选：主页支持 `?category=` 过滤；搜索支持 `?q=`。
+- 友链：`/friends` 读取 `content/data/friends.json`，按 order、addedDate 排序。
+- 关于：`/about` 介绍与头像。
 
-## Deploy on Vercel
+## RSS / SEO
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- RSS：`/feed.xml`（使用 `NEXT_PUBLIC_SITE_URL` 生成绝对链接）。
+- SEO：各页面配置 `metadata`、OpenGraph、Twitter、JSON-LD（主页/文章/关于/友链）。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 环境变量
+
+- `NEXT_PUBLIC_SITE_URL`：站点根地址，用于 canonical、OG、RSS。
+- `STORE_PUBLIC_SITE_URL`（可选）：用于 OG 图片前缀。
+
+## 部署
+
+- 默认 `next.config.ts` 输出 `standalone`，可直接在 Vercel 或容器环境部署。
