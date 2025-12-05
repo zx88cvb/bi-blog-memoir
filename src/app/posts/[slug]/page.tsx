@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { JsonLd } from "@/components/json-ld";
 import { TOC } from "@/components/toc";
+import { getMDXComponents } from '@/lib/mdx-components';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -94,7 +95,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <header className="space-y-4">
             {post.tags?.length ? (
               <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
+                {post.tags.map((tag: string) => (
                   <span
                     key={tag}
                     className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600"
@@ -125,7 +126,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-10 max-w-5xl mx-auto">
           <div className="min-w-0">
             <article className="prose prose-neutral dark:prose-invert max-w-none mb-16">
-              <MDXContent />
+              <MDXContent components={getMDXComponents()} />
             </article>
           </div>
           
