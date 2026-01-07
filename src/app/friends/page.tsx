@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
+import { CopyButton } from "@/components/ui/copy-button";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -118,6 +119,57 @@ export default function FriendlyLinksPage() {
               </div>
             </a>
           ))}
+        </div>
+
+        <div className="mt-20 pt-10 border-t border-dashed border-neutral-200">
+          <div className="flex flex-col gap-10">
+             <div className="flex flex-col gap-3">
+                <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">Apply</p>
+                <h2 className="text-3xl font-serif font-medium text-primary">本站信息 / My Link Info</h2>
+                <p className="text-muted-foreground">欢迎交换友链，以下是本站的信息</p>
+             </div>
+             
+             <div className="flex flex-col divide-y divide-neutral-200 rounded-2xl border border-neutral-200 bg-white p-6 max-w-xl">
+                <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
+                  <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">Name</span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-sm text-primary font-medium">HaydenBi</span>
+                    <CopyButton value="HaydenBi" label="Name" />
+                  </div>
+                </div>
+                
+                <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
+                  <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">URL</span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <code className="text-xs font-mono text-neutral-700 bg-neutral-50 px-2 py-1 rounded border border-neutral-200 w-fit">
+                      https://haydenbi.com
+                    </code>
+                    <CopyButton value="https://haydenbi.com" label="URL" />
+                  </div>
+                </div>
+
+                <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
+                  <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">Avatar</span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <code className="text-xs font-mono text-neutral-700 bg-neutral-50 px-2 py-1 rounded border border-neutral-200 break-all">
+                      https://r2.haydenbi.com/about/about.png
+                    </code>
+                    <CopyButton
+                      value="https://r2.haydenbi.com/about/about.png"
+                      label="Avatar"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
+                  <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">Desc</span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-sm text-neutral-600">Coffee & Indie Developer</span>
+                    <CopyButton value="Coffee & Indie Developer" label="Desc" />
+                  </div>
+                </div>
+             </div>
+          </div>
         </div>
       </div>
       <Footer />

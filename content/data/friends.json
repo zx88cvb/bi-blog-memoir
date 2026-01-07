@@ -51,6 +51,32 @@
       ],
       "addedDate": "2025-11-28",
       "order": 5
+    },
+    {
+      "id": "12",
+      "name": "KELIN'S RECORDS",
+      "url": "https://www.kelin.asia?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "梦见什么写什么",
+      "avatar": "https://kelin.asia/images/avatar.png?v=1766457441145",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2026-01-07",
+      "order": 5
+    },
+    {
+      "id": "13",
+      "name": "Lumine Blog",
+      "url": "https://blog.ezuxoay.top?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "Always believe good things are coming! 🌈",
+      "avatar": "https://shortlink.ezuxoay.top/logo",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2026-01-07",
+      "order": 5
     }
   ],
   "statistics": {
