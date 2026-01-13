@@ -55,7 +55,7 @@ export default function FriendlyLinksPage() {
 
       const timeA = a.addedDate ? new Date(a.addedDate).getTime() : 0;
       const timeB = b.addedDate ? new Date(b.addedDate).getTime() : 0;
-      return timeB - timeA;
+      return timeA - timeB;
     });
 
   return (

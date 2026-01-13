@@ -11,7 +11,7 @@
         "博客"
       ],
       "addedDate": "2025-09-20",
-      "order": 6
+      "order": 4
     },
     {
       "id": "9",
@@ -50,7 +50,7 @@
         "博客"
       ],
       "addedDate": "2025-11-28",
-      "order": 5
+      "order": 7
     },
     {
       "id": "12",
@@ -77,6 +77,19 @@
       ],
       "addedDate": "2026-01-07",
       "order": 5
+    },
+    {
+      "id": "14",
+      "name": "Jackielzq",
+      "url": "https://jackielzq.github.io?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "Jackie的个人博客 ",
+      "avatar": "https://jackielzq.github.io/images/favicon.ico",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2026-01-13",
+      "order": 6
     }
   ],
   "statistics": {
