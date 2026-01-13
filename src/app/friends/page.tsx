@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { CopyButton } from "@/components/ui/copy-button";
+import { WalineComments } from "@/components/waline-comments";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -170,6 +171,10 @@ export default function FriendlyLinksPage() {
                 </div>
              </div>
           </div>
+        </div>
+
+        <div className="mt-16 pt-10 border-t border-dashed border-neutral-200">
+          <WalineComments path="/friends" />
         </div>
       </div>
       <Footer />

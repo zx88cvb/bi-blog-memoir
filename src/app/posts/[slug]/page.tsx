@@ -8,6 +8,7 @@ import Image from "next/image";
 import { JsonLd } from "@/components/json-ld";
 import { TOC } from "@/components/toc";
 import { getMDXComponents } from '@/lib/mdx-components';
+import { WalineComments } from "@/components/waline-comments";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -128,6 +129,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <article className="prose prose-neutral dark:prose-invert max-w-none mb-16">
               <MDXContent components={getMDXComponents()} />
             </article>
+            <WalineComments path={`/posts/${slug}`} />
           </div>
           
           <aside className="hidden lg:block">

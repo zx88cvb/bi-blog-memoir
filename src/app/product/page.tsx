@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
+import { WalineComments } from "@/components/waline-comments";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -119,6 +120,10 @@ export default function ProductPage() {
               </div>
             </a>
           ))}
+        </div>
+
+        <div className="mt-16 pt-10 border-t border-dashed border-neutral-200">
+          <WalineComments path="/product" />
         </div>
       </div>
       <Footer />
