@@ -10,12 +10,14 @@ type ShareMenuProps = {
 };
 
 export function ShareMenu({ canonicalUrl, shareText, className }: ShareMenuProps) {
+  // Pre-encode for share URLs.
   const encodedUrl = encodeURIComponent(canonicalUrl);
   const encodedText = encodeURIComponent(shareText);
   const detailsRef = useRef<HTMLDetailsElement | null>(null);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    // Close the dropdown on outside click or Escape.
     const handlePointerDown = (event: MouseEvent | TouchEvent) => {
       const details = detailsRef.current;
       if (!details) return;
@@ -43,6 +45,7 @@ export function ShareMenu({ canonicalUrl, shareText, className }: ShareMenuProps
   }, []);
 
   const handleCopy = async () => {
+    // Prefer Clipboard API, fallback to a hidden textarea when unavailable.
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(canonicalUrl);
