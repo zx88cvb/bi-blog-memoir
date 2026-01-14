@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/json-ld";
 import { TOC } from "@/components/toc";
 import { getMDXComponents } from '@/lib/mdx-components';
 import { WalineComments } from "@/components/waline-comments";
+import { ShareMenu } from "@/components/share-menu";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -62,6 +63,9 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
+  const canonicalUrl = baseUrl ? `${baseUrl}/posts/${slug}` : `/posts/${slug}`;
+  const shareText = post.title ?? post.slug;
+
   // Rendered MDX component for the post body.
   const MDXContent = post.body;
 
@@ -80,7 +84,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 datePublished: post.date,
                 author: post.author ? { "@type": "Person", name: post.author } : undefined,
                 image: post.image,
-                url: `${baseUrl}/posts/${slug}`,
+                url: canonicalUrl,
               }}
             />
           )}
@@ -99,18 +103,25 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           <header className="space-y-4">
-            {post.tags?.length ? (
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            ) : null}
+            <div className="flex flex-wrap items-center gap-3">
+              {post.tags?.length ? (
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag: string) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+              <ShareMenu
+                canonicalUrl={canonicalUrl}
+                shareText={shareText}
+                className="relative ml-auto z-20"
+              />
+            </div>
             <h1 className="text-4xl sm:text-5xl font-serif font-medium tracking-tight text-primary leading-tight">
               {post.title ?? post.slug}
             </h1>
