@@ -14,14 +14,17 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+// Normalize site URL once for canonical/meta usage.
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
 
 export function generateStaticParams() {
+  // Pre-render all known post routes.
   return getAllPosts().map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  // Build per-post SEO metadata from frontmatter.
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return { title: "Post not found" };
@@ -59,12 +62,14 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
+  // Rendered MDX component for the post body.
   const MDXContent = post.body;
 
   return (
     <div className="flex flex-col min-h-screen">
       <div className="container mx-auto px-4 py-10 flex-1">
         <div className="max-w-5xl mx-auto mb-10">
+          {/* Structured data for richer search previews. */}
           {baseUrl && (
             <JsonLd
               data={{
@@ -133,6 +138,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
           
           <aside className="hidden lg:block">
+            {/* Table of contents for large screens. */}
             <TOC toc={(post).toc} />
           </aside>
         </div>
