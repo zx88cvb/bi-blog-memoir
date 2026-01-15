@@ -103,6 +103,19 @@
       ],
       "addedDate": "2026-01-15",
       "order": 6
+    },
+    {
+      "id": "16",
+      "name": "胡涂说",
+      "url": "https://hutusi.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "「胡涂说」是一个充满好奇心的人记录学习与思考，探索技术与人文思想交汇的地方。",
+      "avatar": "https://avatars.githubusercontent.com/u/487036?v=4",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2026-01-15",
+      "order": 6
     }
   ],
   "statistics": {
