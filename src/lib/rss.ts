@@ -15,7 +15,11 @@ export function getRSS() {
     copyright: 'All rights reserved 2025, HaydenBi',
   });
 
-  for (const page of source.getPages()) {
+  const pages = [...source.getPages()].sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
+
+  for (const page of pages) {
     feed.addItem({
       id: page.url,
       title: page.data.title,
