@@ -11,6 +11,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
 const ogImage = storeUrl ? `${storeUrl}/share/og-image.png` : "/share/og-image.png";
+const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
 
 export const metadata: Metadata = {
   title: "友链 | Hayden Bi Blog",
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: twitterSite,
     title: "友链 | Hayden Bi Blog",
     description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
     images: [ogImage],

@@ -7,6 +7,7 @@ import { WalineComments } from "@/components/waline-comments";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
 const aboutImage = baseUrl ? `${baseUrl}/about/about.png` : "https://r2.haydenbi.com/about/about.png";
+const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
 
 export const metadata: Metadata = {
   title: "关于我 | Hayden Bi Blog",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: twitterSite,
     title: "关于我 | Hayden Bi Blog",
     description: "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。",
     images: [aboutImage],

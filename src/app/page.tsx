@@ -11,6 +11,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
 const ogImage = storeUrl ? `${storeUrl}/share/og-image.png` : "/share/og-image.png";
+const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
 
 export const metadata: Metadata = {
   title: "Hayden Bi Blog",
@@ -37,6 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: twitterSite,
     title: "Hayden Bi Blog",
     description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
     images: [ogImage],

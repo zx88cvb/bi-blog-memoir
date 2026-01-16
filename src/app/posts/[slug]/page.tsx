@@ -18,6 +18,7 @@ type PageProps = {
 // Normalize site URL once for canonical/meta usage.
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
+const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
 
 export function generateStaticParams() {
   // Pre-render all known post routes.
@@ -48,6 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
+      site: twitterSite,
       title: post.title ?? post.slug,
       description: post.excerpt ?? post.description,
       images: post.image ? [post.image] : undefined,
