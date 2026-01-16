@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Sidebar } from "@/components/sidebar";
 import { MobileNav } from "@/components/mobile-nav";
+import { BackToTopButton } from "@/components/back-to-top";
 import { cn } from "@/lib/utils";
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
@@ -24,6 +25,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       >
         {children}
       </main>
+      <BackToTopButton />
     </div>
   );
 }
