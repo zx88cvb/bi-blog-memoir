@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useTransition } from "react";
+import { cn } from "@/lib/utils";
+import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
 type SearchFormProps = {
   selectedCategory?: string;
@@ -39,7 +41,12 @@ export function SearchForm({ selectedCategory, query }: SearchFormProps) {
         name="q"
         placeholder="Search..."
         defaultValue={query}
-        className="w-64 rounded-full bg-white pl-9 border-transparent shadow-none focus-visible:ring-1 focus-visible:ring-neutral-300 focus:bg-white transition-all"
+        className={cn(
+          "w-64 rounded-full pl-9 shadow-none transition-all text-neutral-700 dark:text-neutral-200 dark:placeholder:text-neutral-500",
+          softSurface,
+          softSurfaceHover,
+          "focus-visible:ring-1 focus-visible:ring-neutral-300 dark:focus-visible:ring-neutral-600"
+        )}
       />
     </form>
   );

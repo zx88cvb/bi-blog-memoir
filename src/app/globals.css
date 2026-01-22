@@ -3,6 +3,7 @@
 @import 'fumadocs-ui/css/preset.css';
 @import "@waline/client/style";
 @plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -68,11 +69,42 @@
   --radius: 0.5rem;
 }
 
+.dark {
+  --background: #2b2724;
+  --foreground: #e6e1da;
+
+  --sidebar: #26221f;
+  --sidebar-foreground: #e6e1da;
+
+  --primary: #ede7df;
+  --primary-foreground: #181614;
+
+  --secondary: #332f2b;
+  --secondary-foreground: #e6e1da;
+
+  --muted: #332f2b;
+  --muted-foreground: #bfb7ad;
+
+  --accent: #332f2b;
+  --accent-foreground: #e6e1da;
+
+  --destructive: #f87171;
+  --destructive-foreground: #151413;
+
+  --border: #4a433c;
+  --input: #4a433c;
+  --ring: #d0c7bc;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   color-scheme: light;
+}
+
+.dark body {
+  color-scheme: dark;
 }
 
 .waline {
@@ -92,6 +124,20 @@ body {
   --waline-bq-color: #e4e4e7;
   --waline-info-bg-color: #f4f4f5;
   --waline-info-color: var(--muted-foreground);
+  --waline-box-shadow: none;
+}
+
+.dark .waline {
+  --waline-white: #221f1c;
+  --waline-light-grey: #a69e95;
+  --waline-dark-grey: #d6cfc6;
+  --waline-bg-color: #2a2623;
+  --waline-bg-color-light: #332f2b;
+  --waline-bg-color-hover: #3a3531;
+  --waline-border-color: #4a433c;
+  --waline-bq-color: #4a433c;
+  --waline-info-bg-color: #322e2a;
+  --waline-info-color: #c2bab0;
   --waline-box-shadow: none;
 }
 

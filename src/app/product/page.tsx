@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { WalineComments } from "@/components/waline-comments";
+import { cn } from "@/lib/utils";
+import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -94,10 +96,14 @@ export default function ProductPage() {
               href={product.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              className={cn(
+                "group relative flex flex-col gap-4 rounded-2xl p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:shadow-none",
+                softSurface,
+                softSurfaceHover
+              )}
             >
               <div className="flex items-center justify-between">
-                <div className="relative h-14 w-14 overflow-hidden rounded-full bg-neutral-100 border border-neutral-100">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full border border-neutral-100 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800">
                   <Image
                     src={product.avatar}
                     alt={product.name}
@@ -113,7 +119,7 @@ export default function ProductPage() {
               </div>
               
               <div className="space-y-2">
-                <h3 className="font-serif text-lg font-medium text-primary group-hover:text-black transition-colors">
+                <h3 className="font-serif text-lg font-medium text-primary transition-colors group-hover:text-black dark:group-hover:text-white">
                   {product.name}
                 </h3>
                 <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">

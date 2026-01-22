@@ -164,15 +164,15 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
                 href="https://x-twitter-downloader.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                className="block rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden transition-shadow hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900/70 dark:text-neutral-100 dark:shadow-none"
               >
-                <div className="h-32 bg-neutral-200 relative">
+                <div className="h-32 bg-neutral-200 relative dark:bg-neutral-800">
                   <Image
                     src="https://r2.haydenbi.com/ad/og-image.png"
                     alt="Twitter Video Downloader"
                     fill
                     sizes="256px"
-                    className="object-cover"
+                    className="object-cover dark:brightness-90"
                   />
                 </div>
                 <div className="p-3">

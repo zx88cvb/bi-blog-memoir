@@ -6,6 +6,8 @@ import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { CopyButton } from "@/components/ui/copy-button";
 import { WalineComments } from "@/components/waline-comments";
+import { cn } from "@/lib/utils";
+import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -94,10 +96,14 @@ export default function FriendlyLinksPage() {
               href={friend.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              className={cn(
+                "group relative flex flex-col gap-4 rounded-2xl p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:shadow-none",
+                softSurface,
+                softSurfaceHover
+              )}
             >
               <div className="flex items-center justify-between">
-                <div className="relative h-14 w-14 overflow-hidden rounded-full bg-neutral-100 border border-neutral-100">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full border border-neutral-100 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800">
                   <Image
                     src={friend.avatar}
                     alt={friend.name}
@@ -113,7 +119,7 @@ export default function FriendlyLinksPage() {
               </div>
               
               <div className="space-y-2">
-                <h3 className="font-serif text-lg font-medium text-primary group-hover:text-black transition-colors">
+                <h3 className="font-serif text-lg font-medium text-primary transition-colors group-hover:text-black dark:group-hover:text-white">
                   {friend.name}
                 </h3>
                 <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
@@ -132,7 +138,10 @@ export default function FriendlyLinksPage() {
                 <p className="text-muted-foreground">欢迎交换友链，以下是本站的信息</p>
              </div>
              
-             <div className="flex flex-col divide-y divide-neutral-200 rounded-2xl border border-neutral-200 bg-white p-6 max-w-xl">
+             <div className={cn(
+               "flex flex-col divide-y divide-neutral-200 rounded-2xl p-6 max-w-xl dark:divide-neutral-700",
+               softSurface
+             )}>
                 <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
                   <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">Name</span>
                   <div className="flex flex-wrap items-center gap-3">
@@ -144,7 +153,7 @@ export default function FriendlyLinksPage() {
                 <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
                   <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">URL</span>
                   <div className="flex flex-wrap items-center gap-3">
-                    <code className="text-xs font-mono text-neutral-700 bg-neutral-50 px-2 py-1 rounded border border-neutral-200 w-fit">
+                    <code className="text-xs font-mono text-neutral-700 bg-neutral-50 px-2 py-1 rounded border border-neutral-200 w-fit dark:text-neutral-200 dark:bg-neutral-800/70 dark:border-neutral-700">
                       https://haydenbi.com
                     </code>
                     <CopyButton value="https://haydenbi.com" label="URL" />
@@ -154,7 +163,7 @@ export default function FriendlyLinksPage() {
                 <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
                   <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">Avatar</span>
                   <div className="flex flex-wrap items-center gap-3">
-                    <code className="text-xs font-mono text-neutral-700 bg-neutral-50 px-2 py-1 rounded border border-neutral-200 break-all">
+                    <code className="text-xs font-mono text-neutral-700 bg-neutral-50 px-2 py-1 rounded border border-neutral-200 break-all dark:text-neutral-200 dark:bg-neutral-800/70 dark:border-neutral-700">
                       https://r2.haydenbi.com/about/about.png
                     </code>
                     <CopyButton
@@ -167,7 +176,7 @@ export default function FriendlyLinksPage() {
                 <div className="grid gap-2 py-3 sm:grid-cols-[96px_1fr] sm:items-center">
                   <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">Desc</span>
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-sm text-neutral-600">Coffee & Indie Developer</span>
+                    <span className="text-sm text-neutral-600 dark:text-neutral-300">Coffee & Indie Developer</span>
                     <CopyButton value="Coffee & Indie Developer" label="Desc" />
                   </div>
                 </div>

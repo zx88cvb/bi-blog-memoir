@@ -6,6 +6,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { SearchForm } from "@/components/search-form";
+import { cn } from "@/lib/utils";
+import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -98,7 +100,7 @@ export default async function Home({ searchParams }: PageProps) {
         />
       )}
       <section className="flex flex-col items-center justify-center py-10 px-4 text-center">
-        <div className="mb-6 inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-600 shadow-sm">
+        <div className="mb-6 inline-flex items-center rounded-full border border-neutral-200/70 bg-neutral-100/70 px-3 py-1 text-xs font-medium text-neutral-500 shadow-none dark:border-neutral-800/70 dark:bg-neutral-900/50 dark:text-neutral-400">
           Personal notes & build log
         </div>
         <h1 className="max-w-3xl text-5xl font-serif font-medium tracking-tight text-primary sm:text-6xl mb-6">
@@ -149,9 +151,13 @@ export default async function Home({ searchParams }: PageProps) {
                 <Link
                   key={post.slug}
                   href={`/posts/${post.slug}`}
-                  className="group block bg-white rounded-2xl p-2 shadow-sm hover:shadow-md transition-all"
+                  className={cn(
+                    "group block rounded-2xl p-2 shadow-sm transition-all hover:shadow-md dark:shadow-none",
+                    softSurface,
+                    softSurfaceHover
+                  )}
                 >
-                  <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200 relative mb-4">
+                  <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200 dark:bg-neutral-800 relative mb-4">
                     {post.image ? (
                       <Image
                         src={post.image}
@@ -161,7 +167,7 @@ export default async function Home({ searchParams }: PageProps) {
                         className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                       />
                     ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-white group-hover:scale-[1.02] transition-transform" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-white transition-transform group-hover:scale-[1.02] dark:from-neutral-800 dark:via-neutral-900 dark:to-neutral-950/70" />
                     )}
                   </div>
                   <div className="px-2 pb-3 flex flex-col gap-2">
@@ -173,8 +179,8 @@ export default async function Home({ searchParams }: PageProps) {
                       <h3 className="text-lg font-semibold leading-tight tracking-tight text-primary group-hover:underline line-clamp-2">
                         {post.title ?? post.slug}
                       </h3>
-                      <span className="rounded-full bg-neutral-100 p-1 group-hover:bg-neutral-200 transition-colors flex-shrink-0">
-                        <ArrowRight className="h-4 w-4 text-neutral-500" />
+                      <span className="rounded-full bg-neutral-100 p-1 transition-colors group-hover:bg-neutral-200 flex-shrink-0 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
+                        <ArrowRight className="h-4 w-4 text-neutral-500 dark:text-neutral-300" />
                       </span>
                     </div>
                     {summary && (
@@ -211,12 +217,12 @@ function CategoryPill({ href, label, active }: CategoryPillProps) {
     <Link
       href={href}
       scroll={false}
-      className={[
+      className={cn(
         "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
         active
-          ? "bg-black text-white border-black shadow-sm"
-          : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50",
-      ].join(" ")}
+          ? "bg-black text-white border-black shadow-sm dark:bg-neutral-700 dark:text-neutral-100 dark:border-neutral-600 dark:shadow-none"
+          : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
+      )}
       aria-current={active ? "page" : undefined}
     >
       {label}
