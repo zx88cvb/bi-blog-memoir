@@ -2,7 +2,7 @@
   "friends": [
     {
       "id": "2",
-      "name": "domainsexplore",
+      "name": "Domainsexplore",
       "url": "https://domainsexplore.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
       "description": "域名查询和ip定位",
       "avatar": "https://dhuqkmqv7zzml403.public.blob.vercel-storage.com/image/friends/domainsexplore.com.png",
@@ -16,7 +16,7 @@
     },
     {
       "id": "3",
-      "name": "gamebeanplay",
+      "name": "GamebeanPlay",
       "url": "https://gamebeanplay.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
       "description": "每日小游戏",
       "avatar": "https://dhuqkmqv7zzml403.public.blob.vercel-storage.com/image/friends/gamebeanplay_logo.png",
@@ -88,6 +88,21 @@
       ],
       "addedDate": "2025-11-26",
       "order": 5
+    },
+    {
+      "id": "9",
+      "name": "OG Image Hub",
+      "url": "https://ogimagehub.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "免费 OG Image 生成器",
+      "avatar": "https://ogimagehub.com/logo.png",
+      "status": "active",
+      "tags": [
+        "OG Image",
+        "图片",
+        "生成"
+      ],
+      "addedDate": "2026-01-26",
+      "order": 4
     }
   ],
   "statistics": {
