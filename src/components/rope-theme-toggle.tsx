@@ -58,7 +58,10 @@ export function RopeThemeToggle({ className }: RopeThemeToggleProps) {
 
   // Variants for the gentle swaying idle animation
   const swayVariants: Variants = {
-    idle: {
+    rest: {
+      rotate: 0,
+    },
+    sway: {
       rotate: [-1.5, 1.5],
       transition: {
         duration: 5,
@@ -73,8 +76,8 @@ export function RopeThemeToggle({ className }: RopeThemeToggleProps) {
     <div className={cn("fixed right-10 top-0 z-50", className)}>
       <motion.div
         className="flex flex-col items-center origin-top cursor-pointer active:cursor-pointer"
-        initial="idle"
-        animate="idle"
+        initial="rest"
+        animate="sway"
         whileHover={{ scale: 1.02 }}
         variants={swayVariants}
         onClick={handlePull}
