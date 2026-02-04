@@ -129,31 +129,19 @@
       ],
       "addedDate": "2026-01-16",
       "order": 6
+    },
+    {
+      "id": "18",
+      "name": "花墨",
+      "url": "https://flowersink.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "好耶！是再花猫猫头ฅ•ω•ฅ",
+      "avatar": "https://api.flowersink.com/img/logo.png",
+      "status": "active",
+      "tags": [
+        "博客"
+      ],
+      "addedDate": "2026-02-04",
+      "order": 6
     }
-  ],
-  "statistics": {
-    "totalFriends": 6,
-    "activeFriends": 6,
-    "inactiveFriends": 0,
-    "categories": 7
-  },
-  "settings": {
-    "displayMode": "grid",
-    "sortBy": "order",
-    "showStatus": true,
-    "showTags": true,
-    "showDescription": true
-  },
-  "applicationInfo": {
-    "title": "友情链接申请",
-    "description": "欢迎技术博主申请友情链接，一起交流学习！",
-    "requirements": [
-      "技术相关的个人博客或网站",
-      "内容原创，更新频率较好",
-      "网站访问正常，加载速度良好",
-      "内容健康向上，无违法违规信息"
-    ],
-    "applicationMethod": "请通过邮件联系：zx88cvb@gmail.com",
-    "responseTime": "一般会在3-5个工作日内回复"
-  }
+  ]
 }
