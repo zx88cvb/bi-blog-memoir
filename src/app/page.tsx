@@ -52,10 +52,13 @@ type PageProps = {
 };
 
 export default async function Home({ searchParams }: PageProps) {
-  const { category, q } = await searchParams;
+  const { category, q, page } = await searchParams;
   const categories = getCategories();
   const selectedCategory = Array.isArray(category) ? category[0] : category;
   const query = Array.isArray(q) ? q[0]?.trim() ?? "" : q?.trim() ?? "";
+  const pageParam = Array.isArray(page) ? page[0] : page;
+  const parsedPage = pageParam ? Number.parseInt(pageParam, 10) : 1;
+  const pageSize = 9;
   const allPosts = getAllPosts();
   const postsByCategory = selectedCategory ? filterPostsByCategory(selectedCategory) : allPosts;
   const posts = query
@@ -72,11 +75,27 @@ export default async function Home({ searchParams }: PageProps) {
         return haystack.includes(query.toLowerCase());
       })
     : postsByCategory;
+  const totalPosts = posts.length;
+  const totalPages = Math.max(1, Math.ceil(totalPosts / pageSize));
+  const currentPage = Number.isFinite(parsedPage)
+    ? Math.min(Math.max(parsedPage, 1), totalPages)
+    : 1;
+  const startIndex = (currentPage - 1) * pageSize;
+  const pagedPosts = posts.slice(startIndex, startIndex + pageSize);
 
   const buildHref = (nextCategory?: string) => {
     const params = new URLSearchParams();
     if (nextCategory) params.set("category", nextCategory);
     if (query) params.set("q", query);
+    const search = params.toString();
+    return search ? `/?${search}` : "/";
+  };
+
+  const buildPageHref = (nextPage: number) => {
+    const params = new URLSearchParams();
+    if (selectedCategory) params.set("category", selectedCategory);
+    if (query) params.set("q", query);
+    if (nextPage > 1) params.set("page", String(nextPage));
     const search = params.toString();
     return search ? `/?${search}` : "/";
   };
@@ -144,60 +163,110 @@ export default async function Home({ searchParams }: PageProps) {
         {posts.length === 0 ? (
           <p className="text-muted-foreground">No posts available yet. Add an MDX/MD file to content/blog to get started.</p>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => {
-              const summary = post.excerpt ?? post.description ?? "";
-              return (
+          <>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {pagedPosts.map((post) => {
+                const summary = post.excerpt ?? post.description ?? "";
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/posts/${post.slug}`}
+                    className={cn(
+                      "group block rounded-2xl p-2 shadow-sm transition-all hover:shadow-md dark:shadow-none",
+                      softSurface,
+                      softSurfaceHover
+                    )}
+                  >
+                    <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200 dark:bg-neutral-800 relative mb-4">
+                      {post.image ? (
+                        <Image
+                          src={post.image}
+                          alt={post.title ?? post.slug}
+                          fill
+                          sizes="(min-width: 1024px) 320px, (min-width: 640px) 280px, 100vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-white transition-transform group-hover:scale-[1.02] dark:from-neutral-800 dark:via-neutral-900 dark:to-neutral-950/70" />
+                      )}
+                    </div>
+                    <div className="px-2 pb-3 flex flex-col gap-2">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground font-medium">
+                        <span>{formatDate(post.date) || "—"}</span>
+                        {post.tags?.[0] && <span className="truncate max-w-[8rem] text-right">{post.tags[0]}</span>}
+                      </div>
+                      <div className="flex items-start justify-between gap-2 min-h-[3.5rem]">
+                        <h3 className="text-lg font-semibold leading-tight tracking-tight text-primary group-hover:underline line-clamp-2">
+                          {post.title ?? post.slug}
+                        </h3>
+                        <span className="rounded-full bg-neutral-100 p-1 transition-colors group-hover:bg-neutral-200 flex-shrink-0 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
+                          <ArrowRight className="h-4 w-4 text-neutral-500 dark:text-neutral-300" />
+                        </span>
+                      </div>
+                      {summary && (
+                        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                          {summary}
+                        </p>
+                      )}
+                      {/* <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
+                        {post.author && <span>{post.author}</span>}
+                        {post.author && <span>•</span>}
+                        <span className="truncate">{formatDate(post.date)}</span>
+                      </div> */}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {totalPages > 1 && (
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
                 <Link
-                  key={post.slug}
-                  href={`/posts/${post.slug}`}
+                  href={buildPageHref(Math.max(currentPage - 1, 1))}
+                  aria-disabled={currentPage === 1}
                   className={cn(
-                    "group block rounded-2xl p-2 shadow-sm transition-all hover:shadow-md dark:shadow-none",
-                    softSurface,
-                    softSurfaceHover
+                    "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
+                    currentPage === 1
+                      ? "cursor-not-allowed text-neutral-400 border-neutral-200 dark:border-neutral-800"
+                      : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
                   )}
                 >
-                  <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200 dark:bg-neutral-800 relative mb-4">
-                    {post.image ? (
-                      <Image
-                        src={post.image}
-                        alt={post.title ?? post.slug}
-                        fill
-                        sizes="(min-width: 1024px) 320px, (min-width: 640px) 280px, 100vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-white transition-transform group-hover:scale-[1.02] dark:from-neutral-800 dark:via-neutral-900 dark:to-neutral-950/70" />
-                    )}
-                  </div>
-                  <div className="px-2 pb-3 flex flex-col gap-2">
-                    <div className="flex items-center justify-between text-xs text-muted-foreground font-medium">
-                      <span>{formatDate(post.date) || "—"}</span>
-                      {post.tags?.[0] && <span className="truncate max-w-[8rem] text-right">{post.tags[0]}</span>}
-                    </div>
-                    <div className="flex items-start justify-between gap-2 min-h-[3.5rem]">
-                      <h3 className="text-lg font-semibold leading-tight tracking-tight text-primary group-hover:underline line-clamp-2">
-                        {post.title ?? post.slug}
-                      </h3>
-                      <span className="rounded-full bg-neutral-100 p-1 transition-colors group-hover:bg-neutral-200 flex-shrink-0 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
-                        <ArrowRight className="h-4 w-4 text-neutral-500 dark:text-neutral-300" />
-                      </span>
-                    </div>
-                    {summary && (
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                        {summary}
-                      </p>
-                    )}
-                    {/* <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
-                      {post.author && <span>{post.author}</span>}
-                      {post.author && <span>•</span>}
-                      <span className="truncate">{formatDate(post.date)}</span>
-                    </div> */}
-                  </div>
+                  Prev
                 </Link>
-              );
-            })}
-          </div>
+                {Array.from({ length: totalPages }, (_, index) => {
+                  const pageNumber = index + 1;
+                  const active = pageNumber === currentPage;
+                  return (
+                    <Link
+                      key={pageNumber}
+                      href={buildPageHref(pageNumber)}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
+                        active
+                          ? "bg-black text-white border-black shadow-sm dark:bg-neutral-700 dark:text-neutral-100 dark:border-neutral-600 dark:shadow-none"
+                          : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
+                      )}
+                    >
+                      {pageNumber}
+                    </Link>
+                  );
+                })}
+                <Link
+                  href={buildPageHref(Math.min(currentPage + 1, totalPages))}
+                  aria-disabled={currentPage === totalPages}
+                  className={cn(
+                    "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
+                    currentPage === totalPages
+                      ? "cursor-not-allowed text-neutral-400 border-neutral-200 dark:border-neutral-800"
+                      : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
+                  )}
+                >
+                  Next
+                </Link>
+              </div>
+            )}
+          </>
         )}
       </section>
 
