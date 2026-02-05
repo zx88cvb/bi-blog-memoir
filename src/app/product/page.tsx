@@ -4,7 +4,6 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
-import { WalineComments } from "@/components/waline-comments";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
@@ -130,9 +129,9 @@ export default function ProductPage() {
           ))}
         </div>
 
-        <div className="mt-16 pt-10 border-t border-dashed border-neutral-200">
+        {/* <div className="mt-16 pt-10 border-t border-dashed border-neutral-200">
           <WalineComments path="/product" />
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>

@@ -2,7 +2,6 @@ import { Footer } from "@/components/footer";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
-import { WalineComments } from "@/components/waline-comments";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
@@ -90,11 +89,11 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto px-4 pb-16 max-w-4xl">
+      {/* <div className="container mx-auto px-4 pb-16 max-w-4xl">
         <div className="border-t border-dashed border-neutral-200 pt-10">
           <WalineComments path="/about" />
         </div>
-      </div>
+      </div> */}
       <Footer />
     </div>
   );
