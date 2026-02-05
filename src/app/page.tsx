@@ -6,6 +6,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { SearchForm } from "@/components/search-form";
+import Pagination from "@/components/pagination";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
@@ -220,51 +221,11 @@ export default async function Home({ searchParams }: PageProps) {
             </div>
 
             {totalPages > 1 && (
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-                <Link
-                  href={buildPageHref(Math.max(currentPage - 1, 1))}
-                  aria-disabled={currentPage === 1}
-                  className={cn(
-                    "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
-                    currentPage === 1
-                      ? "cursor-not-allowed text-neutral-400 border-neutral-200 dark:border-neutral-800"
-                      : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
-                  )}
-                >
-                  Prev
-                </Link>
-                {Array.from({ length: totalPages }, (_, index) => {
-                  const pageNumber = index + 1;
-                  const active = pageNumber === currentPage;
-                  return (
-                    <Link
-                      key={pageNumber}
-                      href={buildPageHref(pageNumber)}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
-                        active
-                          ? "bg-black text-white border-black shadow-sm dark:bg-neutral-700 dark:text-neutral-100 dark:border-neutral-600 dark:shadow-none"
-                          : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
-                      )}
-                    >
-                      {pageNumber}
-                    </Link>
-                  );
-                })}
-                <Link
-                  href={buildPageHref(Math.min(currentPage + 1, totalPages))}
-                  aria-disabled={currentPage === totalPages}
-                  className={cn(
-                    "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
-                    currentPage === totalPages
-                      ? "cursor-not-allowed text-neutral-400 border-neutral-200 dark:border-neutral-800"
-                      : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
-                  )}
-                >
-                  Next
-                </Link>
-              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                buildHref={buildPageHref}
+              />
             )}
           </>
         )}
