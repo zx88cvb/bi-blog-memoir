@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, User, Mail, Rss, Handshake, Lightbulb, ArrowUpRight, ChevronLeft, ChevronRight, X, Eye } from "lucide-react";
-import { XIcon } from '@/components/ui/lucide-icon'
+import { Home, User, Mail, Rss, Handshake, Lightbulb, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { XIcon } from "@/components/ui/lucide-icon";
+import { SidebarAd } from "@/components/sidebar-ad";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
@@ -31,23 +31,6 @@ interface SidebarProps {
 
 export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarProps) {
   const pathname = usePathname();
-  const [isAdVisible, setIsAdVisible] = useState(true);
-
-  // Hydrate client state after mount to prevent mismatch
-  useEffect(() => {
-    const savedPreference = localStorage.getItem('sidebar-ad-visible');
-    if (savedPreference !== null) {
-      // eslint-disable-next-line
-      setIsAdVisible(savedPreference === 'true');
-    }
-  }, []);
-
-  // Save ad visibility preference to localStorage
-  const toggleAdVisibility = () => {
-    const newVisibility = !isAdVisible;
-    setIsAdVisible(newVisibility);
-    localStorage.setItem('sidebar-ad-visible', String(newVisibility));
-  };
 
   return (
     <aside
@@ -144,58 +127,7 @@ export function Sidebar({ className, isCollapsed = false, onToggle }: SidebarPro
       </div>
 
       {/* Ad */}
-      {!isCollapsed && (
-        <div className="mb-8 overflow-hidden" suppressHydrationWarning>
-          {isAdVisible ? (
-            <>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Ad</h3>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-5 w-5 hover:bg-accent"
-                  onClick={toggleAdVisibility}
-                  title="Hide ad"
-                >
-                  <X className="h-3 w-3" />
-                </Button>
-              </div>
-              <a
-                href="https://x-twitter-downloader.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden transition-shadow hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900/70 dark:text-neutral-100 dark:shadow-none"
-              >
-                <div className="h-32 bg-neutral-200 relative dark:bg-neutral-800">
-                  <Image
-                    src="https://r2.haydenbi.com/ad/og-image.png"
-                    alt="Twitter Video Downloader"
-                    fill
-                    sizes="256px"
-                    className="object-cover dark:brightness-90"
-                  />
-                </div>
-                <div className="p-3">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-medium truncate">Twitter Video Downloader</h4>
-                    <ArrowUpRight className="h-3 w-3 opacity-50 flex-shrink-0" />
-                  </div>
-                </div>
-              </a>
-            </>
-          ) : (
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full justify-center gap-2"
-              onClick={toggleAdVisibility}
-            >
-              <Eye className="h-3 w-3" />
-              <span className="text-xs">Show Ad</span>
-            </Button>
-          )}
-        </div>
-      )}
+      <SidebarAd isCollapsed={isCollapsed} />
 
       {/* Newsletter */}
       {/* {!isCollapsed && (
