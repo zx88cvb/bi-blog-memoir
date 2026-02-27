@@ -103,6 +103,22 @@
       ],
       "addedDate": "2026-01-26",
       "order": 4
+    },
+    {
+      "id": "10",
+      "name": "Pixalice",
+      "url": "https://pixalice.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "Pixalice在线生成高质量AI图片和视频",
+      "avatar": "https://pixalice.com/logo.png",
+      "status": "active",
+      "tags": [
+        "AI",
+        "图片",
+        "视频",
+        "生成"
+      ],
+      "addedDate": "2026-02-27",
+      "order": 3
     }
   ],
   "statistics": {
