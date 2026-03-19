@@ -119,6 +119,20 @@
       ],
       "addedDate": "2026-02-27",
       "order": 3
+    },
+    {
+      "id": "11",
+      "name": "Mydirs",
+      "url": "https://mydirs.com?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "Mydirs 导航站",
+      "avatar": "https://mydirs.com/logo.png",
+      "status": "active",
+      "tags": [
+        "导航站",
+        "外链"
+      ],
+      "addedDate": "2026-03-19",
+      "order": 3
     }
   ],
   "statistics": {
