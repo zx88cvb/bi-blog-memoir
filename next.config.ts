@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "pixalice.com",
+      },
+      {
+        protocol: "https",
+        hostname: "mydirs.com",
       }
     ],
   },
