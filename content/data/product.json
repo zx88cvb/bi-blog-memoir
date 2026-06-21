@@ -133,6 +133,20 @@
       ],
       "addedDate": "2026-03-19",
       "order": 3
+    },
+    {
+      "id": "12",
+      "name": "Toolaunch",
+      "url": "https://toolaunch.app?utm_source=haydenbi.com&utm_medium=link&utm_campaign=friendlink",
+      "description": "Toolaunch.app 导航站 - 最佳工具和产品发布目录",
+      "avatar": "https://toolaunch.app/logo.png",
+      "status": "active",
+      "tags": [
+        "导航站",
+        "外链"
+      ],
+      "addedDate": "2026-06-21",
+      "order": 3
     }
   ],
   "statistics": {

@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "mydirs.com",
+      },
+      {
+        protocol: "https",
+        hostname: "toolaunch.app",
       }
     ],
   },
