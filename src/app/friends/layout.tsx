@@ -1,4 +1,11 @@
 import { constructMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
+import { getBaseUrl } from "@/lib/urls";
+import {
+  activeFriends,
+  FRIENDS_DESCRIPTION,
+  FRIENDS_TITLE,
+} from "./data";
 
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const ogImage = storeUrl
@@ -6,8 +13,8 @@ const ogImage = storeUrl
   : "/share/og-image.png";
 
 export const metadata = constructMetadata({
-  title: "友链 | Hayden Bi Blog",
-  description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
+  title: FRIENDS_TITLE,
+  description: FRIENDS_DESCRIPTION,
   keywords: ["友链", "友情链接", "伙伴站点", "blogroll"],
   pathname: "/friends",
   image: ogImage,
@@ -21,5 +28,26 @@ export default function FriendsLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  const friendsUrl = new URL("/friends", getBaseUrl()).toString();
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: FRIENDS_TITLE,
+          url: friendsUrl,
+          description: FRIENDS_DESCRIPTION,
+          hasPart: activeFriends.map((friend) => ({
+            "@type": "WebSite",
+            name: friend.name,
+            url: friend.url,
+            description: friend.description,
+          })),
+        }}
+      />
+      {children}
+    </>
+  );
 }

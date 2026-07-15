@@ -1,60 +1,15 @@
 import { Footer } from "@/components/footer";
-import friendsData from "../../../content/data/friends.json";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { JsonLd } from "@/components/json-ld";
 import { CopyButton } from "@/components/ui/copy-button";
 import { WalineComments } from "@/components/waline-comments";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const friendsDescription =
-  "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。";
-
-type Friend = {
-  id: string;
-  name: string;
-  url: string;
-  description: string;
-  avatar: string;
-  status: string;
-  addedDate?: string;
-  order?: number;
-};
+import { activeFriends } from "./data";
 
 export default function FriendlyLinksPage() {
-  const friends = (friendsData.friends as Friend[])
-    .filter((f) => f.status === "active")
-    .sort((a, b) => {
-      const orderA = a.order ?? Number.POSITIVE_INFINITY;
-      const orderB = b.order ?? Number.POSITIVE_INFINITY;
-      if (orderA !== orderB) return orderA - orderB;
-
-      const timeA = a.addedDate ? new Date(a.addedDate).getTime() : 0;
-      const timeB = b.addedDate ? new Date(b.addedDate).getTime() : 0;
-      return timeA - timeB;
-    });
-
   return (
     <div className="flex flex-col min-h-screen">
-      {baseUrl && (
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: "友链 | Hayden Bi Blog",
-            url: `${baseUrl}/friends`,
-            description: friendsDescription,
-            hasPart: friends.map((friend) => ({
-              "@type": "Person",
-              name: friend.name,
-              url: friend.url,
-              description: friend.description,
-            })),
-          }}
-        />
-      )}
       <div className="container mx-auto px-4 py-12 max-w-4xl flex-1">
         <div className="flex flex-col gap-3 mb-8">
           <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">Friends</p>
@@ -63,7 +18,7 @@ export default function FriendlyLinksPage() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {friends.map((friend) => (
+          {activeFriends.map((friend) => (
             <a
               key={friend.id}
               href={friend.url}

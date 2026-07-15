@@ -1,11 +1,19 @@
 import { constructMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
+import { getBaseUrl } from "@/lib/urls";
+import {
+  ABOUT_AUTHOR,
+  ABOUT_DESCRIPTION,
+  ABOUT_IMAGE,
+  ABOUT_TITLE,
+} from "./content";
 
 export const metadata = constructMetadata({
-  title: "关于我 | Hayden Bi Blog",
-  description: "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。",
+  title: ABOUT_TITLE,
+  description: ABOUT_DESCRIPTION,
   keywords: ["关于", "独立开发者", "写作", "个人简介"],
   pathname: "/about",
-  image: "https://r2.haydenbi.com/about/about.png",
+  image: ABOUT_IMAGE,
   openGraphType: "profile",
 });
 
@@ -17,5 +25,26 @@ export default function AboutLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  const aboutUrl = new URL("/about", getBaseUrl()).toString();
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          url: aboutUrl,
+          mainEntity: {
+            "@id": `${aboutUrl}#main-author`,
+            "@type": "Person",
+            name: ABOUT_AUTHOR,
+            url: aboutUrl,
+            image: ABOUT_IMAGE,
+            description: ABOUT_DESCRIPTION,
+          },
+        }}
+      />
+      {children}
+    </>
+  );
 }

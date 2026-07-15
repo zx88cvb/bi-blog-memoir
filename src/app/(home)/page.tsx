@@ -3,15 +3,10 @@ import { filterPostsByCategory, formatDate, getAllPosts, getCategories } from "@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { JsonLd } from "@/components/json-ld";
 import { SearchForm } from "@/components/search-form";
 import Pagination from "@/components/pagination";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const homeDescription =
-  "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -68,22 +63,6 @@ export default async function Home({ searchParams }: PageProps) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {baseUrl && (
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            url: `${baseUrl}/`,
-            name: "Hayden Bi Blog",
-            description: homeDescription,
-            potentialAction: {
-              "@type": "SearchAction",
-              target: `${baseUrl}/?q={search_term_string}`,
-              "query-input": "required name=search_term_string",
-            },
-          }}
-        />
-      )}
       <section className="flex flex-col items-center justify-center py-10 px-4 text-center">
         <div className="mb-6 inline-flex items-center rounded-full border border-neutral-200/70 bg-neutral-100/70 px-3 py-1 text-xs font-medium text-neutral-500 shadow-none dark:border-neutral-800/70 dark:bg-neutral-900/50 dark:text-neutral-400">
           Personal notes & build log

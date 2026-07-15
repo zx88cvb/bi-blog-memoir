@@ -1,26 +1,10 @@
 import { Footer } from "@/components/footer";
 import Image from "next/image";
-import { JsonLd } from "@/components/json-ld";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const aboutImage = baseUrl ? `${baseUrl}/about/about.png` : "https://r2.haydenbi.com/about/about.png";
-const aboutDescription = "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。";
+import { ABOUT_IMAGE } from "./content";
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      {baseUrl && (
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Hayden Bi",
-            url: `${baseUrl}/about`,
-            image: aboutImage,
-            description: aboutDescription,
-          }}
-        />
-      )}
       <div className="container mx-auto px-4 py-12 max-w-5xl flex-1 flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* 左侧内容 */}
@@ -53,7 +37,7 @@ export default function AboutPage() {
           {/* 右侧图片 */}
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-200">
             <Image
-              src="https://r2.haydenbi.com/about/about.png"
+              src={ABOUT_IMAGE}
               alt="Portrait of Hayden Bi"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

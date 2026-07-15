@@ -1,4 +1,11 @@
 import { constructMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
+import { getBaseUrl } from "@/lib/urls";
+import {
+  activeProducts,
+  PRODUCT_DESCRIPTION,
+  PRODUCT_TITLE,
+} from "./data";
 
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const ogImage = storeUrl
@@ -6,8 +13,8 @@ const ogImage = storeUrl
   : "/share/og-image.png";
 
 export const metadata = constructMetadata({
-  title: "产品 | Hayden Bi Blog",
-  description: "个人独立开发的产品与工具集合。",
+  title: PRODUCT_TITLE,
+  description: PRODUCT_DESCRIPTION,
   keywords: ["产品", "工具", "独立开发", "Projects", "Tools"],
   pathname: "/product",
   image: ogImage,
@@ -21,5 +28,27 @@ export default function ProductLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  const productUrl = new URL("/product", getBaseUrl()).toString();
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: PRODUCT_TITLE,
+          url: productUrl,
+          description: PRODUCT_DESCRIPTION,
+          hasPart: activeProducts.map((product) => ({
+            "@type": "SoftwareApplication",
+            name: product.name,
+            url: product.url,
+            description: product.description,
+            image: product.avatar,
+          })),
+        }}
+      />
+      {children}
+    </>
+  );
 }

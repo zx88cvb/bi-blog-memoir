@@ -1,58 +1,13 @@
 import { Footer } from "@/components/footer";
-import productData from "../../../content/data/product.json";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { JsonLd } from "@/components/json-ld";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const productDescription = "个人独立开发的产品与工具集合。";
-
-type Product = {
-  id: string;
-  name: string;
-  url: string;
-  description: string;
-  avatar: string;
-  status: string;
-  addedDate?: string;
-  order?: number;
-};
+import { activeProducts } from "./data";
 
 export default function ProductPage() {
-  const products = (productData.friends as Product[])
-    .filter((p) => p.status === "active")
-    .sort((a, b) => {
-      const orderA = a.order ?? Number.POSITIVE_INFINITY;
-      const orderB = b.order ?? Number.POSITIVE_INFINITY;
-      if (orderA !== orderB) return orderA - orderB;
-
-      const timeA = a.addedDate ? new Date(a.addedDate).getTime() : 0;
-      const timeB = b.addedDate ? new Date(b.addedDate).getTime() : 0;
-      return timeB - timeA;
-    });
-
   return (
     <div className="flex flex-col min-h-screen">
-      {baseUrl && (
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: "产品 | Hayden Bi Blog",
-            url: `${baseUrl}/product`,
-            description: productDescription,
-            hasPart: products.map((product) => ({
-              "@type": "SoftwareApplication",
-              name: product.name,
-              url: product.url,
-              description: product.description,
-              applicationCategory: "UtilityApplication",
-            })),
-          }}
-        />
-      )}
       <div className="container mx-auto px-4 py-12 max-w-4xl flex-1">
         <div className="flex flex-col gap-3 mb-8">
           <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">Products</p>
@@ -61,7 +16,7 @@ export default function ProductPage() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
+          {activeProducts.map((product) => (
             <a
               key={product.id}
               href={product.url}

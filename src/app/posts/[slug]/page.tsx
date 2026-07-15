@@ -4,18 +4,15 @@ import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { JsonLd } from "@/components/json-ld";
 import { TOC } from "@/components/toc";
 import { getMDXComponents } from '@/lib/mdx-components';
 import { WalineComments } from "@/components/waline-comments";
 import { ShareMenu } from "@/components/share-menu";
+import { getBaseUrl } from "@/lib/urls";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
-
-// 统一站点地址，供 JSON-LD 和分享链接使用。
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 
 export function generateStaticParams() {
   // 预渲染所有已发布文章路由。
@@ -30,7 +27,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const canonicalUrl = baseUrl ? `${baseUrl}/posts/${slug}` : `/posts/${slug}`;
+  const canonicalUrl = new URL(`/posts/${slug}`, getBaseUrl()).toString();
   const shareText = post.title ?? post.slug;
 
   // 文章正文对应的 MDX 组件。
@@ -40,21 +37,6 @@ export default async function BlogPostPage({ params }: PageProps) {
     <div className="flex flex-col min-h-screen">
       <div className="container mx-auto px-4 py-10 flex-1">
         <div className="max-w-5xl mx-auto mb-10">
-          {/* 用于搜索结果增强展示的文章结构化数据。 */}
-          {baseUrl && (
-            <JsonLd
-              data={{
-                "@context": "https://schema.org",
-                "@type": "Article",
-                headline: post.title ?? post.slug,
-                description: post.excerpt ?? post.description,
-                datePublished: post.date,
-                author: post.author ? { "@type": "Person", name: post.author } : undefined,
-                image: post.image,
-                url: canonicalUrl,
-              }}
-            />
-          )}
           <div className="flex items-center justify-between mb-6">
             <Link
               href="/"

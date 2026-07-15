@@ -1,4 +1,7 @@
 import { constructMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
+import { getBaseUrl } from "@/lib/urls";
+import { HOME_DESCRIPTION, HOME_TITLE } from "./content";
 
 const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
 const ogImage = storeUrl
@@ -6,9 +9,8 @@ const ogImage = storeUrl
   : "/share/og-image.png";
 
 export const metadata = constructMetadata({
-  title: "Hayden Bi Blog",
-  description:
-    "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
   keywords: ["blog", "Next.js", "tech notes", "indie dev"],
   pathname: "/",
   image: ogImage,
@@ -30,5 +32,20 @@ export default function HomeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  const homeUrl = new URL("/", getBaseUrl()).toString();
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          url: homeUrl,
+          name: HOME_TITLE,
+          description: HOME_DESCRIPTION,
+        }}
+      />
+      {children}
+    </>
+  );
 }
