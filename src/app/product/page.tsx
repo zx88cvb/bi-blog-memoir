@@ -1,41 +1,13 @@
 import { Footer } from "@/components/footer";
 import productData from "../../../content/data/product.json";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
-const ogImage = storeUrl ? `${storeUrl}/share/og-image.png` : "/share/og-image.png";
-const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
-
-export const metadata: Metadata = {
-  title: "产品 | Hayden Bi Blog",
-  description: "个人独立开发的产品与工具集合。",
-  keywords: ["产品", "工具", "独立开发", "Projects", "Tools"],
-  metadataBase,
-  alternates: {
-    canonical: baseUrl ? `${baseUrl}/product` : "/product",
-  },
-  openGraph: {
-    title: "产品 | Hayden Bi Blog",
-    description: "个人独立开发的产品与工具集合。",
-    url: baseUrl ? `${baseUrl}/product` : "/product",
-    type: "website",
-    images: [ogImage],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: twitterSite,
-    title: "产品 | Hayden Bi Blog",
-    description: "个人独立开发的产品与工具集合。",
-    images: [ogImage],
-  },
-};
+const productDescription = "个人独立开发的产品与工具集合。";
 
 type Product = {
   id: string;
@@ -70,7 +42,7 @@ export default function ProductPage() {
             "@type": "CollectionPage",
             name: "产品 | Hayden Bi Blog",
             url: `${baseUrl}/product`,
-            description: metadata.description,
+            description: productDescription,
             hasPart: products.map((product) => ({
               "@type": "SoftwareApplication",
               name: product.name,

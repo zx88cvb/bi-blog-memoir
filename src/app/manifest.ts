@@ -1,23 +1,11 @@
 import type { MetadataRoute } from 'next';
 
 /**
- * Generates the Web App Manifest for the application
+ * 生成站点的 Web App Manifest。
  *
- * generated file name: manifest.webmanifest
+ * Next.js 会将该配置输出为根路径下的 manifest.webmanifest。
  *
- * ref: https://github.com/amannn/next-intl/blob/main/examples/example-app-router/src/app/manifest.ts
- *
- * The manifest.json provides metadata used when the web app is installed on a
- * user's mobile device or desktop. See https://web.dev/add-manifest/
- *
- * Since the manifest file needs to be placed in the root of the app folder (outside the [locale] dynamic segment),
- * you need to provide a locale explicitly since next-intl can’t infer it from the pathname.
- *
- * Solution: use the default messages (get from the default locale)
- *
- * https://next-intl.dev/docs/environments/actions-metadata-route-handlers#manifest
- *
- * @returns {MetadataRoute.Manifest} The manifest configuration object
+ * @returns {MetadataRoute.Manifest} 单语言站点的 Manifest 配置
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {

@@ -1,7 +1,6 @@
 import { Footer } from "@/components/footer";
 import { ArrowLeft } from "lucide-react";
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/blog";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -15,46 +14,12 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-// Normalize site URL once for canonical/meta usage.
+// 统一站点地址，供 JSON-LD 和分享链接使用。
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
-const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
 
 export function generateStaticParams() {
-  // Pre-render all known post routes.
+  // 预渲染所有已发布文章路由。
   return getAllPosts().map(({ slug }) => ({ slug }));
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  // Build per-post SEO metadata from frontmatter.
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post) return { title: "Post not found" };
-
-  return {
-    title: `${post.title} | HaydenBi`,
-    description: post.excerpt ?? post.description,
-    keywords: post.tags?.join(", "),
-    metadataBase,
-    alternates: {
-      canonical: baseUrl ? `${baseUrl}/posts/${slug}` : `/posts/${slug}`,
-    },
-    openGraph: {
-      title: post.title ?? post.slug,
-      description: post.excerpt ?? post.description,
-      url: baseUrl ? `${baseUrl}/posts/${slug}` : `/posts/${slug}`,
-      type: "article",
-      publishedTime: post.date,
-      images: post.image ? [post.image] : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      site: twitterSite,
-      title: post.title ?? post.slug,
-      description: post.excerpt ?? post.description,
-      images: post.image ? [post.image] : undefined,
-    },
-  };
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -68,14 +33,14 @@ export default async function BlogPostPage({ params }: PageProps) {
   const canonicalUrl = baseUrl ? `${baseUrl}/posts/${slug}` : `/posts/${slug}`;
   const shareText = post.title ?? post.slug;
 
-  // Rendered MDX component for the post body.
+  // 文章正文对应的 MDX 组件。
   const MDXContent = post.body;
 
   return (
     <div className="flex flex-col min-h-screen">
       <div className="container mx-auto px-4 py-10 flex-1">
         <div className="max-w-5xl mx-auto mb-10">
-          {/* Structured data for richer search previews. */}
+          {/* 用于搜索结果增强展示的文章结构化数据。 */}
           {baseUrl && (
             <JsonLd
               data={{

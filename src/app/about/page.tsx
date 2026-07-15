@@ -1,36 +1,10 @@
 import { Footer } from "@/components/footer";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
 const aboutImage = baseUrl ? `${baseUrl}/about/about.png` : "https://r2.haydenbi.com/about/about.png";
-const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
-
-export const metadata: Metadata = {
-  title: "关于我 | Hayden Bi Blog",
-  description: "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。",
-  keywords: ["关于", "独立开发者", "写作", "个人简介"],
-  metadataBase,
-  alternates: {
-    canonical: baseUrl ? `${baseUrl}/about` : "/about",
-  },
-  openGraph: {
-    title: "关于我 | Hayden Bi Blog",
-    description: "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。",
-    url: baseUrl ? `${baseUrl}/about` : "/about",
-    type: "profile",
-    images: [aboutImage],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: twitterSite,
-    title: "关于我 | Hayden Bi Blog",
-    description: "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。",
-    images: [aboutImage],
-  },
-};
+const aboutDescription = "了解博主 Hayden Bi：独立开发者、写作者，分享实践笔记与构建心得。";
 
 export default function AboutPage() {
   return (
@@ -43,13 +17,13 @@ export default function AboutPage() {
             name: "Hayden Bi",
             url: `${baseUrl}/about`,
             image: aboutImage,
-            description: metadata.description,
+            description: aboutDescription,
           }}
         />
       )}
       <div className="container mx-auto px-4 py-12 max-w-5xl flex-1 flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+          {/* 左侧内容 */}
           <div className="space-y-8">
             <div className="inline-flex items-center rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
               Who&apos;s writing
@@ -76,7 +50,7 @@ export default function AboutPage() {
             </div> */}
           </div>
 
-          {/* Right Image */}
+          {/* 右侧图片 */}
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-200">
             <Image
               src="https://r2.haydenbi.com/about/about.png"

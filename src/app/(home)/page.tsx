@@ -3,7 +3,6 @@ import { filterPostsByCategory, formatDate, getAllPosts, getCategories } from "@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { SearchForm } from "@/components/search-form";
 import Pagination from "@/components/pagination";
@@ -11,42 +10,8 @@ import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
-const ogImage = storeUrl ? `${storeUrl}/share/og-image.png` : "/share/og-image.png";
-const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
-
-export const metadata: Metadata = {
-  title: "Hayden Bi Blog",
-  description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
-  keywords: ["blog", "Next.js", "tech notes", "indie dev"],
-  metadataBase,
-  alternates: {
-    canonical: "/",
-    types: {
-      'application/rss+xml': [
-        {
-          title: 'Hayden Bi Blog',
-          url: '/index.xml',
-        },
-      ],
-    }
-  },
-  openGraph: {
-    title: "Hayden Bi Blog",
-    description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
-    url: "/",
-    type: "website",
-    images: [ogImage],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: twitterSite,
-    title: "Hayden Bi Blog",
-    description: "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。",
-    images: [ogImage],
-  },
-};
+const homeDescription =
+  "Hayden Bi 的长篇笔记、部署记录和实验合集，探索独立开发与出海产品经验。";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -110,7 +75,7 @@ export default async function Home({ searchParams }: PageProps) {
             "@type": "WebSite",
             url: `${baseUrl}/`,
             name: "Hayden Bi Blog",
-            description: metadata.description,
+            description: homeDescription,
             potentialAction: {
               "@type": "SearchAction",
               target: `${baseUrl}/?q={search_term_string}`,

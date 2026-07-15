@@ -1,7 +1,6 @@
 import { Footer } from "@/components/footer";
 import friendsData from "../../../content/data/friends.json";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { CopyButton } from "@/components/ui/copy-button";
@@ -10,34 +9,8 @@ import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const storeUrl = process.env.STORE_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const metadataBase = baseUrl ? new URL(baseUrl) : undefined;
-const ogImage = storeUrl ? `${storeUrl}/share/og-image.png` : "/share/og-image.png";
-const twitterSite = process.env.NEXT_PUBLIC_TWITTER_SITE;
-
-export const metadata: Metadata = {
-  title: "友链 | Hayden Bi Blog",
-  description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
-  keywords: ["友链", "友情链接", "伙伴站点", "blogroll"],
-  metadataBase,
-  alternates: {
-    canonical: baseUrl ? `${baseUrl}/friends` : "/friends",
-  },
-  openGraph: {
-    title: "友链 | Hayden Bi Blog",
-    description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
-    url: baseUrl ? `${baseUrl}/friends` : "/friends",
-    type: "website",
-    images: [ogImage],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: twitterSite,
-    title: "友链 | Hayden Bi Blog",
-    description: "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。",
-    images: [ogImage],
-  },
-};
+const friendsDescription =
+  "精选友链与伙伴站点，按优先级与时间排序，只展示 active 的链接。";
 
 type Friend = {
   id: string;
@@ -72,7 +45,7 @@ export default function FriendlyLinksPage() {
             "@type": "CollectionPage",
             name: "友链 | Hayden Bi Blog",
             url: `${baseUrl}/friends`,
-            description: metadata.description,
+            description: friendsDescription,
             hasPart: friends.map((friend) => ({
               "@type": "Person",
               name: friend.name,
