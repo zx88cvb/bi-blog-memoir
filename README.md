@@ -39,6 +39,7 @@
 ## RSS / SEO
 
 - RSS：`/feed.xml`（使用 `NEXT_PUBLIC_SITE_URL` 生成绝对链接）。
+- LLM 内容索引：`/llms.txt`（遵循 llms.txt Markdown 规范并自动包含已发布文章）。
 - SEO：各页面配置 `metadata`、OpenGraph、Twitter、JSON-LD（主页/文章/关于/友链）。
 
 ## 环境变量
