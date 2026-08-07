@@ -1,18 +1,17 @@
 "use client";
 
 import type { ComponentProps, MouseEvent, ReactNode, TouchEvent } from "react";
-import Link, { useLinkStatus } from "next/link";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type PendingNavigationLinkProps = Omit<ComponentProps<typeof Link>, "children" | "href"> & {
+type PrefetchNavigationLinkProps = Omit<ComponentProps<typeof Link>, "children" | "href"> & {
   children: ReactNode;
   disabled?: boolean;
   href: string;
 };
 
-export function PendingNavigationLink({
+export function PrefetchNavigationLink({
   children,
   className,
   disabled = false,
@@ -21,7 +20,7 @@ export function PendingNavigationLink({
   onTouchStart,
   href,
   ...props
-}: PendingNavigationLinkProps) {
+}: PrefetchNavigationLinkProps) {
   const router = useRouter();
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -55,36 +54,7 @@ export function PendingNavigationLink({
       prefetch={false}
       tabIndex={disabled ? -1 : undefined}
     >
-      <PendingNavigationContent>{children}</PendingNavigationContent>
+      {children}
     </Link>
-  );
-}
-
-function PendingNavigationContent({ children }: { children: ReactNode }) {
-  const { pending } = useLinkStatus();
-
-  const preventRepeatedNavigation = (event: MouseEvent<HTMLSpanElement>) => {
-    if (pending) event.preventDefault();
-  };
-
-  return (
-    <span
-      aria-busy={pending || undefined}
-      className="relative inline-flex items-center justify-center"
-      data-pending={pending || undefined}
-      onClick={preventRepeatedNavigation}
-    >
-      <span className={cn("transition-opacity", pending && "opacity-30")}>
-        {children}
-      </span>
-      {pending && (
-        <>
-          <LoaderCircle aria-hidden="true" className="absolute h-4 w-4 animate-spin" />
-          <span className="sr-only" role="status">
-            Loading
-          </span>
-        </>
-      )}
-    </span>
   );
 }

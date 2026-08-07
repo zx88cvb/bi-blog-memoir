@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
-import { PendingNavigationLink } from "@/components/pending-navigation-link";
+import { PrefetchNavigationLink } from "@/components/prefetch-navigation-link";
 
 type PaginationProps = {
   currentPage: number;
@@ -23,7 +23,7 @@ export default function Pagination({
 
   return (
     <div className={cn("mt-10 flex flex-wrap items-center justify-center gap-2", className)}>
-      <PendingNavigationLink
+      <PrefetchNavigationLink
         href={buildHref(prevPage)}
         disabled={currentPage === 1}
         className={cn(
@@ -34,11 +34,11 @@ export default function Pagination({
         )}
       >
         Prev
-      </PendingNavigationLink>
+      </PrefetchNavigationLink>
       {pages.map((page) => {
         const active = page === currentPage;
         return (
-          <PendingNavigationLink
+          <PrefetchNavigationLink
             key={page}
             href={buildHref(page)}
             aria-current={active ? "page" : undefined}
@@ -50,10 +50,10 @@ export default function Pagination({
             )}
           >
             {page}
-          </PendingNavigationLink>
+          </PrefetchNavigationLink>
         );
       })}
-      <PendingNavigationLink
+      <PrefetchNavigationLink
         href={buildHref(nextPage)}
         disabled={currentPage === totalPages}
         className={cn(
@@ -64,7 +64,7 @@ export default function Pagination({
         )}
       >
         Next
-      </PendingNavigationLink>
+      </PrefetchNavigationLink>
     </div>
   );
 }

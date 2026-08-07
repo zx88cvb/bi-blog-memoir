@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SearchForm } from "@/components/search-form";
 import Pagination from "@/components/pagination";
-import { PendingNavigationLink } from "@/components/pending-navigation-link";
+import { PrefetchNavigationLink } from "@/components/prefetch-navigation-link";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
@@ -189,7 +189,7 @@ type CategoryPillProps = {
 
 function CategoryPill({ href, label, active }: CategoryPillProps) {
   return (
-    <PendingNavigationLink
+    <PrefetchNavigationLink
       href={href}
       scroll={false}
       className={cn(
@@ -201,6 +201,6 @@ function CategoryPill({ href, label, active }: CategoryPillProps) {
       aria-current={active ? "page" : undefined}
     >
       {label}
-    </PendingNavigationLink>
+    </PrefetchNavigationLink>
   );
 }
