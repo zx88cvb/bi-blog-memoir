@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { LoaderCircle, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useTransition } from "react";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,7 @@ type SearchFormProps = {
 
 export function SearchForm({ selectedCategory, query }: SearchFormProps) {
   const router = useRouter();
-  const [, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,20 +34,36 @@ export function SearchForm({ selectedCategory, query }: SearchFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
-      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+    <form aria-busy={isPending || undefined} onSubmit={handleSubmit} className="relative">
+      {isPending ? (
+        <LoaderCircle
+          aria-hidden="true"
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground"
+        />
+      ) : (
+        <Search
+          aria-hidden="true"
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+        />
+      )}
       <Input
         type="search"
         name="q"
         placeholder="Search..."
         defaultValue={query}
+        disabled={isPending}
         className={cn(
-          "w-64 rounded-full pl-9 shadow-none transition-all text-neutral-700 dark:text-neutral-200 dark:placeholder:text-neutral-500",
+          "w-64 rounded-full pl-9 shadow-none transition-colors text-neutral-700 dark:text-neutral-200 dark:placeholder:text-neutral-500",
           softSurface,
           softSurfaceHover,
           "focus-visible:ring-1 focus-visible:ring-neutral-300 dark:focus-visible:ring-neutral-600"
         )}
       />
+      {isPending && (
+        <span className="sr-only" role="status">
+          Searching
+        </span>
+      )}
     </form>
   );
 }

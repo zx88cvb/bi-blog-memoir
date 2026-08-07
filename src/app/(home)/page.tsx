@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SearchForm } from "@/components/search-form";
 import Pagination from "@/components/pagination";
+import { PendingNavigationLink } from "@/components/pending-navigation-link";
 import { cn } from "@/lib/utils";
 import { softSurface, softSurfaceHover } from "@/lib/ui-classes";
 
@@ -188,11 +189,11 @@ type CategoryPillProps = {
 
 function CategoryPill({ href, label, active }: CategoryPillProps) {
   return (
-    <Link
+    <PendingNavigationLink
       href={href}
       scroll={false}
       className={cn(
-        "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-all",
+        "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium",
         active
           ? "bg-black text-white border-black shadow-sm dark:bg-neutral-700 dark:text-neutral-100 dark:border-neutral-600 dark:shadow-none"
           : cn(softSurface, softSurfaceHover, "text-neutral-700 dark:text-neutral-200")
@@ -200,6 +201,6 @@ function CategoryPill({ href, label, active }: CategoryPillProps) {
       aria-current={active ? "page" : undefined}
     >
       {label}
-    </Link>
+    </PendingNavigationLink>
   );
 }
