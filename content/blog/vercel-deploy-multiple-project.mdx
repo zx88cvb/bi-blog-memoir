@@ -7,10 +7,10 @@ tags: ["Vercel", "前端开发", "部署"]
 author: "Hayden Bi"
 ---
 
-# 1. 起因
+## 1. 起因
   因为手上有一个项目集合需要通过: 域名/项目名称 访问。但每个项目用到的框架各不相同。最简单的办法是通过nginx配置反向代理来实现，奈何没有多余的服务器。所以就想部署到Vercel上。本来是想每个项目在Vercel单独部署,因为每个项目都是一个小模块功能不多，单独起一个项目有点浪费就打算合成一个项目通过域名+项目名的方式来部署。于是查了查资料发现还真可以。下面就来带大家第一实践一下。
 
-# 2. 项目结构
+## 2. 项目结构
 
 
 ```txt
@@ -22,7 +22,7 @@ project-list/
 └── project-D/   # 纯 HTML 静态项目
 ```
 
-## 2.1 project-A项目下的package.json
+### 2.1 project-A项目下的package.json
 ```json
 {
   "name": "project-A",
@@ -40,7 +40,7 @@ project-list/
 ```
 Vercel 自动识别 @vercel/next，会跑 npm run build，输出 .next/。
 
-## 2.2 project-B项目下的package.json
+### 2.2 project-B项目下的package.json
 ```json
 {
   "name": "project-B",
@@ -57,7 +57,7 @@ Vercel 自动识别 @vercel/next，会跑 npm run build，输出 .next/。
 ```
 Vite 默认打包目录 dist/
 
-## 2.3 project-C项目下的package.json
+### 2.3 project-C项目下的package.json
 ```json
 {
   "name": "project-C",
@@ -73,7 +73,7 @@ Vite 默认打包目录 dist/
 ```
 Astro 也会输出 dist/
 
-## 2.4 project-D 纯HTML+CSS+JS
+### 2.4 project-D 纯HTML+CSS+JS
 ```json
 project-D/
  ├── index.html
@@ -83,7 +83,7 @@ project-D/
 ```
 Vercel 直接托管，不需要 build。
 
-# 3. vercel.json创建和配置
+## 3. vercel.json创建和配置
 在父项目project-list下创建vercel.json
 下面是vercel.json的具体配置
 ```json
@@ -130,7 +130,7 @@ Vercel 直接托管，不需要 build。
   }
 ```
 针对不同项目,builds里面的写法不同. 当然具体情况得看自己的项目结构，即便是其他的框架也可以照葫芦画瓢的在builds里面配置。
-# 4. 提交并部署
+## 4. 提交并部署
 现在可以直接将父项目源码上传到Git,Vercel通过vercel.json会识别到各个项目的build设置。后续部署全程由Vercel来自动完成(第一次操作记得在Vercel中关联到Git里面的project-list父项目,后续代码有提交都会自动部署)
 
 部署完成后通过 域名/项目名/index.html 来试着访问一下你的项目吧!

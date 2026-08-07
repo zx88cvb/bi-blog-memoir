@@ -7,16 +7,16 @@ tags: ["AI", "Moltbot", "OpenClaw", "Gmail"]
 author: "Hayden Bi"
 ---
 
-# 前言
+## 前言
 本文演示如何使用 OpenClaw（原名 Moltbot/Clawdbot）实现 Gmail 邮件自动化管理。你将学会完成 OAuth 授权、筛选重要邮件、生成摘要，并配置定时推送，让邮件处理更省心。
 
-# 前置条件
+## 前置条件
 1. 已安装 OpenClaw，并完成频道接入（可参考： [OpenClaw（原 Moltbot）安装教程：从 0 搭建本地 AI 助手](/posts/moltbot-install)）
 2. 拥有 Google 账号（Gmail 邮箱）
 
-# 集成
+## 集成
 
-## 确定方案
+### 确定方案
 
 <figure className="my-6">
   <img
@@ -73,7 +73,7 @@ B. 把这个 json 发给我
 你回我这 3 个答案 + 把 client_secret_*.json 发过来，我就开始在服务器上搭脚本和定时任务。
 ```
 
-## Google Cloud Console 配置
+### Google Cloud Console 配置
 具体实现方案如下：
 
 1. 打开 Google Cloud Console 第一次需要先创建项目 (https://console.cloud.google.com/).
@@ -136,7 +136,7 @@ B. 把这个 json 发给我
 
 5. 在搜索框输入 **OAuth consent screen**，在 **目标对象 → 测试用户** 中添加自己的 Gmail 邮箱
 
-## OpenClaw 配置
+### OpenClaw 配置
 
 <figure className="my-6">
   <img
@@ -268,10 +268,10 @@ node gmail_token_from_desktop.js ./client_secret.json
 
 说明 OpenClaw 已经可以读取你的邮件了。
 
-### 每天按时总结
+#### 每天按时总结
 如果想每天定时让 OpenClaw 帮你总结邮件，可以告诉它：**每天早上 9:00 帮忙总结重要邮件的摘要**。这样每天早上 9 点它会按时执行并总结。
 
-## 实时邮件处理发布/订阅（可选，这里不做演示）
+### 实时邮件处理发布/订阅（可选，这里不做演示）
 配置如下（编辑 `~/.openclaw/openclaw.json`）：
 
 ```json
@@ -286,5 +286,5 @@ node gmail_token_from_desktop.js ./client_secret.json
 }
 ```
 
-# 总结
+## 总结
 到这里，OpenClaw 集成 Gmail 的设置就完成了。后续你可以继续扩展更多规则（如指定发件人、关键字过滤、自动标签等）。如果有任何问题或想法，欢迎在评论区留言交流。

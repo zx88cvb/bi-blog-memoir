@@ -7,8 +7,8 @@ tags: ["Docker", "Linux", "部署"]
 author: "Hayden Bi"
 ---
 
-# 检查磁盘空间和各容器占用空间
-## 检查磁盘空间情况
+## 检查磁盘空间和各容器占用空间
+### 检查磁盘空间情况
 首先检查磁盘空间确认overlay2占用空间
 
 ```bash
@@ -52,7 +52,7 @@ tmpfs           1.6G     0  1.6G   0% /run/user/0
 
 
 
-## 检查容器的占用情况
+### 检查容器的占用情况
 首先检查docker模块中的占用情况
 
 ```bash
@@ -81,8 +81,8 @@ Build Cache     754       0         40.38GB   40.38GB
 
 我们主要是清理Images、Containers和Build Cache中的文件
 
-# 执行清理操作
-## 清理无用的Images
+## 执行清理操作
+### 清理无用的Images
 首先先查看一下目前存在的镜像
 
 ```bash
@@ -108,7 +108,7 @@ docker image prune
 
 这条命令会自动帮我们清除带有`<none>`的无效镜像。命令执行完毕会提示释放了多少个空间。然后我们再来执行docker images命令会发现带有`<none>`的镜像全部被清理干净了磁盘空间也得到了释放!
 
-## 清理Containers容器中的日志
+### 清理Containers容器中的日志
 Containers容器占用最多的基本上就是日志文件
 
 Docker 日志(也就是 docker logs 输出的东西) 默认存放在：
@@ -145,7 +145,7 @@ find /var/lib/docker/containers/ -name "*-json.log" -exec truncate -s 0 {} \;
 
 **不删除文件、不重启服务，不影响任何容器运行。**
 
-### 从根源限制Docker日志大小(一劳永逸的方法 推荐)
+#### 从根源限制Docker日志大小(一劳永逸的方法 推荐)
 我们可以设置限制日志大小从而不用每次都来手动删除日志
 
 输入
@@ -176,7 +176,7 @@ vim /etc/docker/daemon.json
 systemctl restart docker
 ```
 
-## 清理Build Cache构建缓存
+### 清理Build Cache构建缓存
 Build Cache主要是构建时的缓存，清理它们下次打包构建时速度可能会慢点，对于系统没有任何影响。如果磁盘占用过高需要及时清理。清理方法也特别简单就一行命令
 
 ```bash
@@ -185,5 +185,5 @@ docker builder prune
 
 执行完成后可以发现服务器的内存又释放了一大截。
 
-# 总结
+## 总结
 通过先查看磁盘占用、再清理无用镜像与日志、最后删除构建缓存，可以快速释放overlay2占用的磁盘空间。如果希望长期稳定，建议同时配置日志大小限制，并定期用`docker system df`和`df -h`复查空间，避免再次爆满。

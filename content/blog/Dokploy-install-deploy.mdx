@@ -7,7 +7,7 @@ tags: ["Dokploy", "前端开发", "部署"]
 author: "Hayden Bi"
 ---
 
-# 使用Dokploy的原因
+## 使用Dokploy的原因
 
 我之前用的都是传统的部署方式。通过Dockerfile进行部署然后使用Nginx做反向代理。SSL证书使用Let’s Encrypt 。每当上一个新项目这一套程序都得走一遍而且是纯手动配置执行。因为考虑到现在是初期尝试阶段，新项目的个数会有点多，再加上想把重心放在产品业务上，运维方面的事情就想通过自动化来完成。于是发现了Dokploy 是一个免费的、自托管的平台即服务 (PaaS)，可简化应用程序和数据库的部署和管理。
 
@@ -19,7 +19,7 @@ author: "Hayden Bi"
 + 内置 **数据库/存储管理**，可以直接装 Postgres、MySQL、Redis。
 + 多项目管理方便，日志可视化。
 
-# 前置条件
+## 前置条件
 1. 一台Linux服务器.运行内存2GB RAM
 2. Linux发行版(以下版本官方测试过，其他发行版不太确定是否能使用)
 + Ubuntu 24.04 LTS
@@ -34,7 +34,7 @@ author: "Hayden Bi"
 + Centos 9
 + Centos 8
 
-# 安装Dokploy
+## 安装Dokploy
 Dokploy有两种使用模式：云版本，开源版本
 
 使用云版本每个月会有一定的费用，而开源版本是完全免费的 收费模式如下图
@@ -63,14 +63,14 @@ curl -sSL https://dokploy.com/install.sh | sh
 
 进入图中页面可以注册你的账号密码
 
-# 部署第一个项目
+## 部署第一个项目
 这里我使用NextJS项目为例来部署一个项目
 
 ![Dokploy控制台主页面](https://r2.haydenbi.com/post/aa057a46-32ad-4cea-accd-839edfc7f845.png)
 
 登录到主页面后可以看到Dokploy的控制台
 
-## 新建Project
+### 新建Project
 选择左侧菜单的Projects-> 点击右侧的Create Project
 
 ![创建新项目页面](https://r2.haydenbi.com/post/1757492233682-20797c34-f19f-4a27-a3dc-97b996059d8b.png)
@@ -79,7 +79,7 @@ curl -sSL https://dokploy.com/install.sh | sh
 
 点击Create
 
-## 新建Service
+### 新建Service
 点击进入刚刚创建的Project可以看到这个页面是Service服务页面
 
 Service是Project下面的服务，可以理解成真正意义上你的单独的项目
@@ -88,7 +88,7 @@ Service是Project下面的服务，可以理解成真正意义上你的单独的
 
 点击右侧的Create Service -> 选择Application->填写你的项目名称等信息
 
-## 配置关联Git项目仓库
+### 配置关联Git项目仓库
 ![配置Git仓库页面](https://r2.haydenbi.com/post/997e07bb-1ce4-4b9b-936d-d04ce5f21bfc.png)
 
 点击刚刚创建的Service会进入到如图所示的页面
@@ -103,7 +103,7 @@ Service是Project下面的服务，可以理解成真正意义上你的单独的
 
 最后点击Save保存 记住一定得点一下，下一步配置Build时如果没保存会把刚刚的配置清空掉
 
-## 配置Build
+### 配置Build
 ![Build构建配置页面](https://r2.haydenbi.com/post/1757493174100-3fdc2a3b-be6b-46e6-84a4-e2483a3b7133.png)
 
 页面接着往下滑会看到Build Type设置。
@@ -167,7 +167,7 @@ CMD ["node", "server.js"]
 
 
 
-## 设置环境变量
+### 设置环境变量
 ![环境变量配置页面](https://r2.haydenbi.com/post/1757493604873-0b8ff1f8-919f-4e51-bbe9-cc9ef7e5eeb8.png)
 
 点击菜单上面的Environment可以看到如上图的页面
@@ -176,7 +176,7 @@ CMD ["node", "server.js"]
 
 最后点击最下面的Save保存
 
-## 部署
+### 部署
 ![部署按钮页面](https://r2.haydenbi.com/post/1757493836315-8d927632-47a3-4900-85e8-ba9ab9705ebc.png)
 
 回到General菜单，点击Deploy部署按钮即可
@@ -185,8 +185,8 @@ CMD ["node", "server.js"]
 
 当部署成功之后点击最右侧的Logs菜单查看项目的日志
 
-# 给项目添加域名
-## 配置DNS
+## 给项目添加域名
+### 配置DNS
 这里我以cloudflare为例
 
 把域名指向你服务器的公网IP
@@ -203,7 +203,7 @@ conent: 服务器的公网IP
 
 如果需要配置www前缀 可以参考CNAME那一栏的配置
 
-## 配置域名和SSL证书
+### 配置域名和SSL证书
 ![Dokploy域名配置页面](https://r2.haydenbi.com/post/1757493997311-75daa751-d17d-49a6-b660-34d5d7274b58.png)
 
 选择Domains这栏->点击Add Domain
@@ -218,7 +218,7 @@ Container Port是Dockerfile里写的容器内端口，这里我是3000
 
 配置完成后通过域名就可以访问到你当前的项目了
 
-## www前缀域名转发到一级主域名
+### www前缀域名转发到一级主域名
 我所使用的版本Dokploy 0.25.1目前没有找到可视化的配置方法。有人说在左侧菜单Traefik File System中可以配置，这个我没有试过 主要对Traefik不太熟悉
 
 
@@ -237,7 +237,7 @@ Cloudflare左侧菜单 Rules->Page Rules->点击Create Page Rule
 
 目前为止项目配置到此结束，通过域名和www域名转发到主域名都可以访问了！
 
-# 给Dokploy添加域名(可选)
+## 给Dokploy添加域名(可选)
 ![Dokploy Web Server配置页面](https://r2.haydenbi.com/post/1757495171453-4fefa141-d696-4e1a-b254-00b08c6d6c23.png)
 
 > 配置之前记得设置DNS把域名映射到服务器的IP上，和上面4.1配置DNS步骤一样

@@ -7,7 +7,7 @@ tags: ["AI", "Moltbot", "OpenClaw", "ChatGPT"]
 author: "Hayden Bi"
 ---
 
-# 前言
+## 前言
 Moltbot (原 Clawdbot) 今天改名为:OpenClaw 可以理解为一个本地运行的 AI 网关工具，它负责在大模型与电脑之间搭桥，让 AI 助手真正能在本地工作。它可以部署在你的个人设备上，例如 **Mac、Windows 或 Linux**，让 AI 不只是停留在网页聊天，而是真正接入你的本地环境与常用应用。
 
 它的核心作用是把 AI 模型的能力和你的设备、软件生态连接起来：
@@ -24,10 +24,10 @@ Moltbot (原 Clawdbot) 今天改名为:OpenClaw 可以理解为一个本地运�
 
 > 注意：网关模块通常需要稳定访问模型接口和第三方平台。如果选择在服务器上部署，为避免 DNS、Telegram API、模型访问等网络限制问题，建议使用境外服务器环境运行。
 
-# 前置条件
+## 前置条件
 1. 一台 Linux 服务器，2 核 2GB 配置（推荐 Ubuntu）
 
-# 服务器
+## 服务器
 我选择的是 AWS 服务器，新账号有 USD $100 的 AWS 抵用金，有效时间半年，基本可以免费用一段时间。
 
 地区我选择的是新加坡。2 核 2GB 配置可以参考下图的选项配置：
@@ -45,8 +45,8 @@ Moltbot (原 Clawdbot) 今天改名为:OpenClaw 可以理解为一个本地运�
 </figure>
 
 
-# 安装
-## 执行终端命令
+## 安装
+### 执行终端命令
 ```bash
 curl -fsSL https://clawd.bot/install.sh | bash
 ```
@@ -83,7 +83,7 @@ Onboarding mode
 
 选择 **QuickStart**。
 
-## 选择模型和授权
+### 选择模型和授权
 <figure className="my-6">
   <img
     src="https://r2.haydenbi.com/post/moltbot-install-model-auth.png"
@@ -154,7 +154,7 @@ Model/auth provider
 
 选择模型。
 
-## 选择聊天频道
+### 选择聊天频道
 
 <figure className="my-6">
   <img
@@ -188,7 +188,7 @@ Model/auth provider
 - 得到 HTTP API 的 KEY 后输入到终端
 - 别忘了点击刚刚创建的机器人，后续步骤需要接收一条消息
 
-## 配置 Skill
+### 配置 Skill
 
 <figure className="my-6">
   <img
@@ -306,7 +306,7 @@ How do you want to hatch your bot?
 
 到这里安装就已经完成了。
 
-## Telegram 机器人配对
+### Telegram 机器人配对
 
 <figure className="my-6">
   <img
@@ -346,8 +346,8 @@ clawdbot pairing approve telegram XXXXXXX
 
 当然 Moltbot 能做到的远不止这些，还有许多意想不到的玩法等我们发掘，我也会在接下来的文章中持续分享。
 
-# 常见问题
-## telegram setMyCommands failed: HttpError: Network request for 'setMyCommands'
+## 常见问题
+### telegram setMyCommands failed: HttpError: Network request for 'setMyCommands'
 此错误表示你的 Clawdbot 实例无法连接到 Telegram 的 API 服务器 `api.telegram.org`。
 
 最常见的原因：

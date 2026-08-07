@@ -7,11 +7,11 @@ tags: ["AI", "Moltbot", "OpenClaw", "Update"]
 author: "Hayden Bi"
 ---
 
-# 前言
+## 前言
 
 OpenClaw 更新频率比较快，很多新功能和修复都会通过安装脚本下发。如果你已经在服务器上跑起来了，最常见的问题就是：怎么安全升级、升级失败要怎么处理、哪些错误其实可以忽略。本文记录了官方推荐的升级方式，以及我在升级过程中遇到的典型报错和解决办法，方便后续查阅。
 
-# 升级
+## 升级
 
 官方推荐通过安装脚本升级，它会检测现有安装并进行就地更新：
 
@@ -35,9 +35,9 @@ curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard
 
 等待一会儿即可完成更新。
 
-# 常见问题
+## 常见问题
 
-## 通过 openclaw update 升级出现 Updating via package manager 错误
+### 通过 openclaw update 升级出现 Updating via package manager 错误
 
 ```bash
 Updating OpenClaw...

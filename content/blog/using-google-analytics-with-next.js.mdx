@@ -7,13 +7,13 @@ tags: ["Next.js", "前端开发", "NodeJS", "Google Analytics"]
 author: "Hayden Bi"
 ---
 
-# 1. 安装 npm install @next/third-parties
+## 1. 安装 npm install @next/third-parties
 
 执行npm安装命令
 ```bash
     npm install @next/third-parties
 ```
-# 2. 引入GoogleAnalytics组件
+## 2. 引入GoogleAnalytics组件
 
 一般在app下的layout.tsx中引入
 
@@ -35,9 +35,9 @@ import { GoogleAnalytics } from '@next/third-parties/google';
     );
 ```
 
-# 3. 检查接入是否成功
+## 3. 检查接入是否成功
 
-## 3.1. 通过F12查看
+### 3.1. 通过F12查看
 
 项目部署到生产环境后进去页面，通过F12查看
 
@@ -45,7 +45,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 
 如果有图中的代码则表示Google Analytics代码已经成功加入到项目中，一般这段代码会在最末尾
 
-## 3.2. 登录Google Analytics查看是否有访问数据
+### 3.2. 登录Google Analytics查看是否有访问数据
 
 ![Google Analytics控制台显示过去30分钟活跃用户数据](https://r2.haydenbi.com/post/google-analytics-console.png)
 
