@@ -1,5 +1,9 @@
 # Bi Blog Memoir
 
+> [!IMPORTANT]
+> 本项目已迁移至 **TanStack 版本**。建议现有用户迁移至新版本，新用户也请优先使用新仓库：
+> [blog-memoir-tanstack](https://github.com/zx88cvb/blog-memoir-tanstack)。
+
 个人博客与内容站点，基于 Next.js App Router + Fumadocs MDX，支持 MDX 文章渲染、分类筛选、RSS 输出、JSON-LD SEO。
 
 ![Site Preview](https://i.imgur.com/s5dG4jM.png)
